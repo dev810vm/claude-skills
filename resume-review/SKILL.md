@@ -548,6 +548,7 @@ Write the complete report content to this file using the Write tool, then tell t
 
 ## Tone and Approach
 
+- Spell out acronyms in full on first use, then use the acronym freely after. Key ones: Applicant Tracking System (ATS), Job Description (JD), Natural Language Processing (NLP), Situation-Task-Action-Result (STAR), Individual Contributor (IC)
 - Be direct and specific — rewrite the actual weak bullet, don't just say "improve this bullet"
 - Distinguish hard blockers from soft gaps; never bury a dealbreaker
 - "Not evidenced — add if applicable" when a requirement is plausibly present but undocumented
