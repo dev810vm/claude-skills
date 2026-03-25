@@ -10,15 +10,21 @@ Produce a comprehensive resume evaluation against a job description — covering
 
 ## Inputs
 
-The user provides files for both the resume and job description. Accepted formats: PDF, TXT, DOCX, MD, or any readable text format.
+The user provides files for both the resume and job description. Accepted formats: PDF, TXT, DOCX, MD, RTF, or any readable text format.
 
-**If file paths are not provided, ask:**
+**Auto-detect files first — before asking the user for anything:**
+1. Use the Glob tool to list all files in the current working directory
+2. Read any files that appear to be a resume, job description, or cover letter — when in doubt, read it
+3. Tell the user which files were detected at the start of the response
+
+**Only ask if no relevant files are found:**
 > "Please provide the resume and job description as files (PDF, TXT, or similar). What are the file paths?"
 
-**Once paths are provided:**
+**Once files are identified:**
 1. Read the resume file using the Read tool
 2. Read the job description file using the Read tool
-3. If a file can't be read, report the error and ask for an alternative path or format
+3. Read the cover letter if found
+4. If a file can't be read, report the error and ask for an alternative path or format
 
 **Optional additional materials:** The user may also supply a cover letter, writing samples, portfolio links, academic transcript, application Q&A responses, or any other supporting documents. If provided, read all of them — they can resolve gaps that the resume alone doesn't evidence.
 
