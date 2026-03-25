@@ -22,7 +22,7 @@ The user provides files for both the resume and job description. Accepted format
 
 **Optional additional materials:** The user may also supply a cover letter, writing samples, portfolio links, academic transcript, application Q&A responses, or any other supporting documents. If provided, read all of them — they can resolve gaps that the resume alone doesn't evidence.
 
-**If this is an updated review:** If the user indicates this is a follow-up to a prior review (e.g., "I added the fellowship, re-review it"), read the existing report file, treat the new materials as incremental evidence, and produce an updated report with a change log noting what shifted and why.
+**Previous runs:** At the start of every run, scan the output directory for existing review files matching `[resume-filename-without-extension]-review-[company-slug]-v*.md`. Read all found files — they are previous runs of this skill. Use them to populate the Run Comparison section in the new report. Every run always produces a new versioned file; previous runs are never overwritten.
 
 **Resume-only mode:** If no job description is available, skip Steps 0, 1 (JD extract), 3 (ATS), 4 (confidence scoring), 5 (personas), 6 (gap triage), and 7 (scoring), and produce instead: ATS formatting check, writing quality assessment, bullet rewrite suggestions, and general positioning feedback. Note in the output that full matching requires a job description.
 
@@ -495,6 +495,29 @@ AI fingerprint flags: [None / list terms found]
 
 ---
 
+### Run Comparison
+[Include only if previous versioned report files were found. If this is v1, omit this section entirely.]
+
+| | [v1 — date if known] | [v2 — date if known] | ... | This run (v[N]) |
+|---|---|---|---|---|
+| Overall score | X% | X% | ... | X% |
+| Technical Skills | X% | X% | ... | X% |
+| Experience & Seniority | X% | X% | ... | X% |
+| Domain Knowledge | X% | X% | ... | X% |
+| Education & Credentials | X% | X% | ... | X% |
+| Soft Skills & Culture Fit | X% | X% | ... | X% |
+
+**What changed:**
+- [Score or gap that improved, and why — e.g., "Calendar management: GAP → WEAK — scheduling sentence added to cover letter in v2"]
+- [Score or gap that worsened, and why — if any]
+- [New gaps surfaced, or gaps resolved]
+- [Materials added or changed between runs]
+
+**What hasn't moved:**
+- [Persistent gaps or weaknesses that remain unaddressed across all runs]
+
+---
+
 ### Summary
 
 [2–3 sentences: overall fit, biggest strength, single most important thing to fix]
@@ -504,13 +527,13 @@ AI fingerprint flags: [None / list terms found]
 
 ## Output File
 
-After producing the report, write it to a markdown file in the same directory as the resume file.
+After producing the report, write it to a new versioned markdown file in the same directory as the resume file. **Never overwrite a previous run.**
 
-**Filename format:** `[resume-filename-without-extension]-review-[company-slug].md`
+**Filename format:** `[resume-filename-without-extension]-review-[company-slug]-v[N].md`
 - `company-slug` = company name lowercased, spaces replaced with hyphens, special chars removed
-- Example: resume is `john_doe_resume.pdf`, company is "Acme Corp" → `john_doe_resume-review-acme-corp.md`
-- If no company name is available: `[resume-filename]-review.md`
-- If this is an updated review, overwrite the existing report file
+- `N` = next available version number (scan for existing `-v1`, `-v2`, etc. and increment)
+- Example: resume is `john_doe_resume.pdf`, company is "Acme Corp", first run → `john_doe_resume-review-acme-corp-v1.md`; second run → `john_doe_resume-review-acme-corp-v2.md`
+- If no company name is available: `[resume-filename]-review-v[N].md`
 
 Write the complete report content to this file using the Write tool, then tell the user the full file path.
 
@@ -529,7 +552,7 @@ Write the complete report content to this file using the Write tool, then tell t
 
 The output report is read by the applicant, not by the person running this skill. **Never include:**
 - References to this skill, its version, or recent changes ("the v3 skill update," "per the skill's own examples")
-- Comparisons to previous runs ("vs. v2," "unchanged from prior review," "↑ from 52% in the last report")
+- Comparisons to previous runs sprinkled throughout the main report body — all cross-run comparisons belong exclusively in the Run Comparison section at the end
 - Internal methodology labels as jargon ("Tier 3 absent," "semantic tier analysis validates")
 - Version numbers in the report title or header
 
