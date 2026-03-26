@@ -9,7 +9,7 @@ A collection of Claude Code skills for job seekers. Drop these into Claude and g
 | Skill | What it does |
 |---|---|
 | [resume-review](./resume-review/) | Scores your resume against a job description, flags gaps, and gives you a prioritized fix list |
-| [company-research](./company-research/) | Researches a company and tells you what to mention in your cover letter and resume |
+| [company-intel](./company-intel/) | Researches a company and tells you what to mention in your cover letter and resume |
 
 ---
 
@@ -18,7 +18,7 @@ A collection of Claude Code skills for job seekers. Drop these into Claude and g
 Copy the skills to your Claude global skills directory:
 
 ```bash
-cp -r company-research ~/.claude/skills/
+cp -r company-intel ~/.claude/skills/
 cp -r resume-review ~/.claude/skills/
 ```
 
@@ -55,13 +55,13 @@ The skills are designed to:
 | Skill | Output file |
 |---|---|
 | resume-review | `[resume-name]-review-[company]-v1.md` (versioned — reruns create v2, v3, etc.) |
-| company-research | `intel-brief.md` |
+| company-intel | `intel-brief.md` |
 
 ---
 
 ## Tips
 
-- **Run company-research first** — if you run resume-review and an `intel-brief.md` already exists in the folder, it will use that instead of re-running the research, saving significant time
+- **Run company-intel first** — if you run resume-review and an `intel-brief.md` already exists in the folder, it will use that instead of re-running the research, saving significant time
 - **Add a cover letter** — put it in the same folder as your resume; resume-review will factor it into gap analysis
 - **Rerun after edits** — resume-review is versioned, so rerunning after you update your resume creates a new report and shows you what improved
 - **Multiple resume versions** — if you have more than one resume file in the folder, the skill reads all of them and treats the differences as context for the review

@@ -75,11 +75,11 @@ Run the evaluation in parallel phases. Do not run steps sequentially when they a
 
 **Company Research** runs as a parallel branch starting immediately after Step 1 identifies the company name:
 - If `intel-brief.md` or a file matching `*research*.md` / `*intel*.md` is already present and recent (within 30 days), use it — no need to re-run
-- Otherwise invoke company-research via the **Agent tool with `run_in_background: true`**. Do NOT use the Skill tool here — it blocks the main thread.
+- Otherwise invoke company-intel via the **Agent tool with `run_in_background: true`**. Do NOT use the Skill tool here — it blocks the main thread.
 
   The agent prompt must include:
   1. The full job description text
-  2. This instruction: *"Use the Skill tool to invoke the company-research skill on this job description. Write intel-brief.md to the current working directory and confirm the file was written before finishing."*
+  2. This instruction: *"Use the Skill tool to invoke the company-intel skill on this job description. Write intel-brief.md to the current working directory and confirm the file was written before finishing."*
 
 - **Immediately after launching the background agent**, proceed with Steps 3 and 9 in parallel — do not wait for the agent to finish
 - Steps 2, 4, 5, and 6 need company intel — do not start them until company research completes
