@@ -267,7 +267,9 @@ Specific adjustments to make to the resume to resonate with this company — key
 
 ## Output File
 
-Write the complete brief to `intel-brief.md` in the current working directory using the Write tool. After writing, confirm the file exists by reading it back, then tell the user the full absolute file path. Do not consider the task complete until the file is confirmed on disk.
+**If the prompt explicitly says not to write files** (e.g. when called from resume-review as a background agent): return the complete brief as response text only. Do not attempt to write any files.
+
+**Otherwise** (when invoked directly by a user): write the complete brief to `intel-brief.md` in the current working directory using the Write tool. After writing, confirm the file exists by reading it back, then tell the user the full absolute file path. Do not consider the task complete until the file is confirmed on disk.
 
 ---
 
