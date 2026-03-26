@@ -267,13 +267,7 @@ Specific adjustments to make to the resume to resonate with this company — key
 
 ## Output File
 
-Write the complete brief to `intel-brief.md` using the Write tool. Determine the output path as follows:
-
-1. **If an explicit output directory was provided in the prompt** (e.g. when called from resume-review): write to that exact path — `[provided directory]/intel-brief.md`
-2. **If a job description file was provided**: write to the same directory as that file
-3. **Fallback**: write to the current working directory
-
-After writing, confirm the file exists at the path using the Read tool, then tell the user the full absolute file path. Do not consider the task complete until the file is confirmed on disk.
+Write the complete brief to `intel-brief.md` in the current working directory using the Write tool. After writing, confirm the file exists by reading it back, then tell the user the full absolute file path. Do not consider the task complete until the file is confirmed on disk.
 
 ---
 
