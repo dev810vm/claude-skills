@@ -2,13 +2,7 @@
 name: company-intel
 description: This skill should be used when the user wants to "research a company for a job application", "find out what to mention in my cover letter", "what should I say about the company in my resume", "tailor my application to this company", "what does this company care about", "research before applying", "what should I know about this company before applying", or provides a job description and wants company-specific talking points for their cover letter or resume. Use this skill whenever the goal is to surface company intelligence that makes an application more targeted and specific.
 version: 1.0.0
-allowedTools:
-  - Read
-  - Write
-  - Glob
-  - WebSearch
-  - WebFetch
-  - Agent
+allowed-tools: Read, Write, Glob, WebSearch, WebFetch, Agent
 ---
 
 # Company Research for Job Applications
