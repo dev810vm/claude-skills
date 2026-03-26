@@ -53,10 +53,12 @@ Run the evaluation in parallel phases. Do not run steps sequentially when they a
          |
 [Step 1: Parse Resume + JD — extract company name]
          |
-    ┌────┴──────────────────────┬─────────────────────────┐
-[Company Research]        [Step 3: ATS]       [Step 9: Writing Quality]
-    └────┬──────────────────────┘
+    ┌────┴──────────────────────────┐
+[Step 3: ATS]       [Step 9: Writing Quality]
+    └────┬──────────────────────────┘
          |  (both complete)
+[Company Research — blocking]
+         |
     ┌────┴──────────────────────┐
 [Step 2: Domain Lens]  [Step 4: Confidence Scoring]
     └────┬──────────────────────┘
@@ -74,17 +76,16 @@ Run the evaluation in parallel phases. Do not run steps sequentially when they a
 [Write output file]
 ```
 
-**Company Research** runs as a parallel branch starting immediately after Step 1 identifies the company name:
+**Company Research** runs after Steps 3 and 9 complete. It is a blocking call — do not proceed to Step 2 or Step 4 until it finishes:
 - If `intel-brief.md` or a file matching `*research*.md` / `*intel*.md` is already present and recent (within 30 days), use it — no need to re-run
-- Otherwise invoke company-intel via the **Agent tool with `run_in_background: true`**. Do NOT use the Skill tool here — it blocks the main thread.
+- Otherwise invoke company-intel via the **Agent tool (synchronous — do not use `run_in_background`)**
 
   The agent prompt must include:
   1. The full job description text
   2. This instruction verbatim: *"Use the Skill tool to invoke the company-intel skill on this job description. Do NOT write any files. Return the COMPLETE intel brief as your response text, using the exact output format specified in the company-intel skill — every section including Company Snapshot, What This Company Cares About Right Now, Team/Product Context, Cover Letter Recommendations, Resume Tailoring Recommendations, Salary Intelligence, Employment Reviews Summary, Political Disposition & Public Advocacy, Things to Avoid, and Research Confidence table. Do not summarize, truncate, or reformat. Return the full markdown verbatim."*
 
-- **Immediately after launching the background agent**, proceed with Steps 3 and 9 in parallel — do not wait for the agent to finish
-- When the background agent completes, write its response to `intel-brief.md` using the Write tool. **Write the agent's output verbatim — do not summarize, reformat, or selectively include sections.** Every section the agent returned must appear in the file.
-- Steps 2, 4, 5, and 6 need company intel — do not start them until the agent completes and `intel-brief.md` has been written
+- When the agent returns, write its response to `intel-brief.md` using the Write tool. **Write the agent's output verbatim — do not summarize, reformat, or selectively include sections.** Every section the agent returned must appear in the file.
+- Steps 2, 4, 5, and 6 need company intel — do not start them until company research is complete and `intel-brief.md` has been written
 - If the company is unidentifiable from the JD (rare): note it, proceed without research, and flag it in the output
 
 Company intel informs:
@@ -128,12 +129,11 @@ If any dealbreaker is triggered, flag it immediately and prominently before proc
 
 The role archetype shapes which JD requirements deserve most weight in scoring.
 
-> **→ PHASE 1 PARALLEL:** As soon as Step 1 identifies the company name, launch all three of the following simultaneously — do not wait for any one to finish before starting the others:
-> - **Company Research** (see Execution Order section above)
+> **→ PHASE 1 PARALLEL:** As soon as Step 1 is complete, launch both of the following simultaneously:
 > - **Step 3: ATS Compatibility Check** (independent of company intel)
 > - **Step 9: Achievement Quality & Writing Assessment** (independent of everything)
 >
-> Proceed to Step 2 and Step 4 only after both Company Research and Step 3 are complete.
+> Once Steps 3 and 9 are complete, run **Company Research** (blocking — see Execution Order section above). Do not start Step 2 or Step 4 until company research finishes.
 
 ### Step 2: Build the Domain-Specialist Lens
 
