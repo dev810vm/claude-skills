@@ -136,7 +136,7 @@ When assessing keyword gaps, prioritize:
 
 Flag as an ATS risk if 3+ high-priority keywords from the JD are absent from the resume.
 
-Target keyword match rate: **65–75%** to pass modern AI-powered ATS screening.
+Target keyword match rate: **65–75%** threshold to pass modern AI-powered ATS screening. For competitive or high-volume roles, aim for **80%+**.
 
 ## ATS Formatting Failures (Instant Disqualifiers)
 

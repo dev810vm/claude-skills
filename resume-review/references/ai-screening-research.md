@@ -29,8 +29,8 @@ Company size correlation:
 
 ### Recent M&A Activity (reshaping the market)
 - **Workday + HiredScore** (closed March 2024): HiredScore is now Workday's AI scoring layer
-- **Workday + Paradox** (announced 2025, pending close): Conversational AI for high-volume hiring being added to Workday
-- **SAP + SmartRecruiters** (closed September 2025): SmartRecruiters now being positioned to replace SAP SuccessFactors recruiting; AI assistant renamed "Winston," integrating with SAP's Joule AI
+- **Workday + Paradox** (closed October 1, 2025): Conversational AI for high-volume hiring integrated into Workday
+- **SAP + SmartRecruiters** (closed September 2025): SmartRecruiters now being positioned to replace SAP SuccessFactors recruiting; AI assistant "Winston" (SmartRecruiters) and SAP's "Joule" AI are being connected as linked agents — combined integration available H2 2026
 
 ### Legacy (rule-based keyword matching)
 **Taleo** (Oracle), older **iCIMS** configurations. Rule-based exact keyword matching. Very format-sensitive — tables, columns, graphics cause content to be dropped entirely. Synonyms do not match. Oracle is actively migrating customers to Oracle Recruiting Cloud (ORC), which has actual ML-powered scoring — Taleo is in maintenance mode. For Taleo: format conservatively, use DOCX, mirror exact JD terminology.
@@ -165,7 +165,7 @@ Nearly half of companies configure ATS to automatically flag gaps as short as si
 **Candidate guidance:**
 - STAR (Situation, Task, Action, Result) format for every behavioral question
 - Front-load Action and Result — NLP models score on content relevance; don't build up to the answer
-- Target 90–120 seconds per answer — significantly shorter or longer responses tend to score lower
+- Target 60–90 seconds per answer — most employers set 90–120 second limits, but responses delivered in 60–90 seconds score better; significantly shorter or longer responses tend to score lower
 - Minimize filler words (um, like, you know) — these appear verbatim in the transcript
 - Neutral background, eye-level camera, well-lit, quiet environment
 - Game-based assessments (cognitive/personality): measure processing speed, pattern recognition, decision-making — cannot be meaningfully gamed; approach calmly
@@ -203,7 +203,7 @@ Nearly half of companies configure ATS to automatically flag gaps as short as si
 - Equal selection in only 37% of cases
 
 **Age bias (Stanford, October 2025):**
-AI resume-screening tools gave older male candidates higher ratings than female candidates and younger candidates, despite identical underlying data.
+AI resume-screening tools exhibited systematic bias against older women specifically: AI-generated resumes portrayed women as younger and less experienced, and the same tools then rated older men's resumes higher than older women's. The core harm is to older women at the intersection of age and gender bias.
 
 **Bias amplification (University of Washington, November 2025):**
 People mirror AI systems' hiring biases — humans exposed to AI recommendations tend to adopt those biases, amplifying the effect beyond the AI's initial selection.
