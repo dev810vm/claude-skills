@@ -1,4 +1,4 @@
-# Company Research Skill
+# Company Intel Skill
 
 Researches a company and produces an intelligence brief: what they're focused on right now, what to mention in your cover letter and resume, salary data, employee sentiment, and political disposition — all from public sources.
 
@@ -40,13 +40,13 @@ Specific things to mention in your cover letter, each tied to a concrete researc
 Keyword and framing adjustments to make your resume resonate with this company — which terms to add, which achievements to surface, how to shift emphasis.
 
 **Salary Intelligence**
-Compensation range for the role at this company, broken into low / median / high with sources and recency noted. Draws from Glassdoor, Levels.fyi, Blind, Reddit, and public H1B/PERM filings where available.
+Compensation range for the role at this company, broken into low / median / high with sources and recency noted. Draws from Glassdoor, Levels.fyi, Blind, Reddit, and public H-1B visa / PERM (Program Electronic Review Management) labor certification filings where available.
 
 **Employment Reviews Summary**
 Patterns from recent employee reviews — recurring positives, recurring concerns, red flags (layoffs, reorgs, rating trajectory), and what the interview process typically looks like. Outliers are filtered out in favor of patterns.
 
 **Political Disposition & Public Advocacy**
-Where the company sits on the political spectrum based on public records only — PAC/FEC donation history, federal lobbying disclosures, official policy positions (DEI, ESG), CEO public statements, and industry association memberships. Presented as factual signals without editorial framing. Useful for culture-fit assessment.
+Where the company sits on the political spectrum based on public records only — Political Action Committee (PAC) / Federal Election Commission (FEC) donation history, federal lobbying disclosures, official policy positions (Diversity, Equity & Inclusion (DEI), Environmental, Social & Governance (ESG)), CEO public statements, and industry association memberships. Presented as factual signals without editorial framing. Useful for culture-fit assessment.
 
 **Things to Avoid**
 Topics or framings that could land awkwardly — recent layoffs you shouldn't cite as a positive signal, product lines that were discontinued, competitive tensions with your current employer.
@@ -74,6 +74,6 @@ The methodology behind where and how the skill searches. Useful if you want to u
 
 - **Run this before resume-review** — the intel brief is automatically reused by `resume-review` if it's in the same folder, skipping the research step and saving significant time
 - **Specificity beats volume** — the brief prioritizes recent, concrete findings over generic company descriptions. If research turns up little, it says so rather than padding with filler
-- **Salary data varies by source** — H1B/PERM filings (available for public companies and government contractors) are the most reliable because they're legally required disclosures. Glassdoor and Blind reflect self-reported data
+- **Salary data varies by source** — H-1B/PERM filings (available for public companies and government contractors) are the most reliable because they're legally required disclosures. Glassdoor and Blind reflect self-reported data
 - **Political disposition is factual, not advisory** — the skill reports what public records show and doesn't suggest whether that's good or bad. You decide what matters to you
 - **The brief goes stale** — research is timestamped; if you're re-running `resume-review` more than 30 days later, delete `intel-brief.md` to force a fresh research pass

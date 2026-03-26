@@ -44,7 +44,7 @@ The top 5 highest-impact changes to make right now, ranked by how much they'll m
 **Company Intel Summary**
 What the skill found out about the company and how it shaped the evaluation. Links to the full `intel-brief.md` for details.
 
-**ATS Assessment**
+**ATS Assessment** (Applicant Tracking System)
 How your resume performs against automated screening systems. Two scores:
 - *Older systems (exact words only)* — legacy keyword matchers that need verbatim matches
 - *Modern AI systems (includes synonyms)* — semantic systems that understand related terms
@@ -55,7 +55,7 @@ The keyword table shows every term from the job posting and whether it's in your
 - `✗ Not found` — missing; add it if the experience exists
 
 **Five-Persona Verdicts**
-Your resume reviewed through five different lenses — ATS robot (0 seconds), recruiter glance (10 seconds), HR screen (30 seconds), hiring manager (2 minutes), technical reviewer (10 minutes). Each gives a binary verdict and the single factor that most drives their decision.
+Your resume reviewed through five different lenses — ATS robot (0 seconds), recruiter glance (10 seconds), HR (Human Resources) screen (30 seconds), hiring manager (2 minutes), technical reviewer (10 minutes). Each gives a binary verdict and the single factor that most drives their decision.
 
 **Confidence-Scored Match Summary**
 Every requirement from the job posting scored on how well your resume covers it:
@@ -83,7 +83,7 @@ Side-by-side score history across all versions so you can see what improved betw
 
 Scores are weighted by role type, which the skill detects automatically:
 
-| Dimension | Technical IC | People Leader | Cross-Functional |
+| Dimension | Technical IC (Individual Contributor) | People Leader | Cross-Functional |
 |---|---|---|---|
 | Technical Skills | 40% | 15% | 20% |
 | Experience & Seniority | 25% | 35% | 25% |
@@ -104,7 +104,7 @@ Detailed scoring criteria for each of the five evaluation dimensions. For each d
 
 ### `references/reframe-strategies.md`
 Four strategies used during gap triage when a requirement is partially but not fully met (confidence 45–74%). A reframe makes a genuine connection explicit without overclaiming:
-- **Keyword Alignment** — preserve meaning, adopt the JD's terminology
+- **Keyword Alignment** — preserve meaning, adopt the job description's (JD's) terminology
 - **Emphasis Shift** — same facts, lead with the angle the role cares about
 - **Abstraction Level** — dial technical detail up or down depending on role type
 - **Scale Emphasis** — surface scope, team size, or user impact that's implied but unstated
@@ -118,8 +118,8 @@ Research briefing on how AI hiring systems actually work (2025–2026). Covers:
 - **Formatting failures** — specific issues that cause silent rejection (multi-column layouts, text boxes, Canva PDFs, non-standard headers)
 - **Career trajectory signals** — how short tenures and gaps are scored; how to label contract work to avoid penalties
 - **HireVue video interview guidance** — what's actually scored after facial analysis was discontinued in 2021
-- **Documented bias** — Brookings, Stanford, and UW research on racial, gender, and age bias in AI hiring systems
-- **Regulatory landscape** — EU AI Act (in force), NYC Local Law 144, and the Mobley v. Workday class action
+- **Documented bias** — Brookings, Stanford, and University of Washington (UW) research on racial, gender, and age bias in AI hiring systems
+- **Regulatory landscape** — European Union (EU) AI Act (in force), NYC Local Law 144, and the Mobley v. Workday class action
 
 ---
 
