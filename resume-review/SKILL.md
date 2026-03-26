@@ -2,6 +2,14 @@
 name: resume-review
 description: This skill should be used when the user asks to "review my resume", "evaluate resume against job", "how well does my resume match this job", "score my resume", "check resume fit", "analyze resume for job description", "does my resume qualify for this role", "improve my resume for this position", provides resume and job description files (PDF, TXT, DOCX, etc.) and wants feedback, or mentions a resume file path. Use this skill whenever a resume, CV, or job description is present (as a file or pasted text) and the user wants evaluation, matching, gap analysis, or improvement suggestions — even if they don't explicitly say "resume review".
 version: 3.1.0
+allowedTools:
+  - Read
+  - Write
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
+  - Agent
 ---
 
 # Resume Review & Job Match Evaluator
