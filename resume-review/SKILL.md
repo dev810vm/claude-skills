@@ -75,7 +75,16 @@ Run the evaluation in parallel phases. Do not run steps sequentially when they a
 
 **Company Research** runs as a parallel branch starting immediately after Step 1 identifies the company name:
 - If `intel-brief.md` or a file matching `*research*.md` / `*intel*.md` is already present and recent (within 30 days), use it — no need to re-run
-- Otherwise invoke the `company-research` skill via the **Agent tool with `run_in_background: true`**, passing the full job description text and resume file path as context. Do NOT use the Skill tool here — it blocks the main thread. The Agent tool with `run_in_background` allows the main thread to continue immediately.
+- Otherwise invoke company-research via the **Agent tool with `run_in_background: true`**. Do NOT use the Skill tool here — it blocks the main thread.
+
+  The agent prompt must include all of the following explicitly:
+  1. The full job description text
+  2. The **absolute path to the directory** where `intel-brief.md` should be written (e.g. `/Users/jane/jobs/acme/`) — the agent will not reliably infer this on its own
+  3. This instruction verbatim: *"Use the Skill tool to invoke the company-research skill. When it writes intel-brief.md, confirm it is written to [absolute directory path]. After writing, verify the file exists at that path."*
+
+  Example agent prompt:
+  > "Use the Skill tool to invoke the company-research skill on the following job description. Write the output file intel-brief.md to this exact directory: [absolute path]. Verify the file was written there before finishing. Job description: [full JD text]"
+
 - **Immediately after launching the background agent**, proceed with Steps 3 and 9 in parallel — do not wait for the agent to finish
 - Steps 2, 4, 5, and 6 need company intel — do not start them until company research completes
 - If the company is unidentifiable from the JD (rare): note it, proceed without research, and flag it in the output
