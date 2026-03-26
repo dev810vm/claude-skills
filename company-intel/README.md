@@ -56,6 +56,20 @@ Honest assessment of how much public information was available in each category.
 
 ---
 
+## Reference Files
+
+### `references/research-sources.md`
+The methodology behind where and how the skill searches. Useful if you want to understand why certain sources are trusted more than others, or if you're researching a company type that's less common.
+
+- **Source reliability ranking** — four tiers from most to least reliable, with reasoning. Company engineering blogs and earnings call transcripts (Tier 1) carry more weight than Glassdoor reviews (Tier 3) or Wikipedia (Tier 4).
+- **Salary research by company type** — different playbooks for big tech, startups, nonprofits, and government contractors. Includes how to interpret base vs. total comp, recency, and geographic adjustments.
+- **Employment review calibration** — what patterns to look for vs. ignore (Glassdoor skews toward dissatisfied employees; Blind skews toward engineers). How to weight review trends vs. absolute scores.
+- **Search patterns by company type** — specific search templates for public companies, growth-stage startups, early-stage/stealth, enterprise, nonprofits, and government contractors.
+- **JD signals to research further** — a table of phrases that appear in job descriptions (e.g., "we're rebuilding X", "fast-growing", "cross-functional") and what each one means you should look up.
+- **When research turns up little** — how to handle thin-coverage companies (stealth startups, private companies with no public presence) without padding the brief with guesses.
+
+---
+
 ## Tips
 
 - **Run this before resume-review** — the intel brief is automatically reused by `resume-review` if it's in the same folder, skipping the research step and saving significant time

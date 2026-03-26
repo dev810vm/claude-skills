@@ -93,6 +93,36 @@ Scores are weighted by role type, which the skill detects automatically:
 
 ---
 
+## Reference Files
+
+The skill draws on three reference files in the `references/` folder. You don't need to read them to use the skill, but they explain the methodology behind the output.
+
+### `references/scoring-rubric.md`
+Detailed scoring criteria for each of the five evaluation dimensions. For each dimension, it defines what a 90–100% score looks like vs. a 40–59% score, with calibration notes (e.g., how to handle adjacent skills, career gaps, scope differences). Also includes:
+- The ATS keyword priority tiers (high / medium / low priority terms)
+- The ATS formatting failure table — specific resume formatting choices that cause silent parsing failures, what breaks, and how to fix each
+
+### `references/reframe-strategies.md`
+Four strategies used during gap triage when a requirement is partially but not fully met (confidence 45–74%). A reframe makes a genuine connection explicit without overclaiming:
+- **Keyword Alignment** — preserve meaning, adopt the JD's terminology
+- **Emphasis Shift** — same facts, lead with the angle the role cares about
+- **Abstraction Level** — dial technical detail up or down depending on role type
+- **Scale Emphasis** — surface scope, team size, or user impact that's implied but unstated
+
+Includes a decision tree: when to reframe vs. when to flag as a true gap, and a table of what counts as legitimate reframing vs. overclaiming.
+
+### `references/ai-screening-research.md`
+Research briefing on how AI hiring systems actually work (2025–2026). Covers:
+- **Tool landscape** — Workday/HiredScore, Eightfold, Greenhouse, iCIMS, Taleo, Paradox, HireVue and how each scores resumes differently
+- **What signals are weighted most** — job title match, summary section, skills demonstrated in bullets, recency of skills
+- **Formatting failures** — specific issues that cause silent rejection (multi-column layouts, text boxes, Canva PDFs, non-standard headers)
+- **Career trajectory signals** — how short tenures and gaps are scored; how to label contract work to avoid penalties
+- **HireVue video interview guidance** — what's actually scored after facial analysis was discontinued in 2021
+- **Documented bias** — Brookings, Stanford, and UW research on racial, gender, and age bias in AI hiring systems
+- **Regulatory landscape** — EU AI Act (in force), NYC Local Law 144, and the Mobley v. Workday class action
+
+---
+
 ## Tips for Better Results
 
 - **Fix the Quick Kill List items first** — these are ranked by score impact, not ease
