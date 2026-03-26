@@ -79,10 +79,10 @@ Run the evaluation in parallel phases. Do not run steps sequentially when they a
 
   The agent prompt must include:
   1. The full job description text
-  2. This instruction: *"Use the Skill tool to invoke the company-intel skill on this job description. Do NOT write any files — return the complete intel brief as your response text only. The caller will handle writing it to disk."*
+  2. This instruction verbatim: *"Use the Skill tool to invoke the company-intel skill on this job description. Do NOT write any files. Return the COMPLETE intel brief as your response text, using the exact output format specified in the company-intel skill — every section including Company Snapshot, What This Company Cares About Right Now, Team/Product Context, Cover Letter Recommendations, Resume Tailoring Recommendations, Salary Intelligence, Employment Reviews Summary, Political Disposition & Public Advocacy, Things to Avoid, and Research Confidence table. Do not summarize, truncate, or reformat. Return the full markdown verbatim."*
 
 - **Immediately after launching the background agent**, proceed with Steps 3 and 9 in parallel — do not wait for the agent to finish
-- When the background agent completes, **write its response to `intel-brief.md`** in the current working directory using the Write tool — do not rely on the agent to write the file itself
+- When the background agent completes, write its response to `intel-brief.md` using the Write tool. **Write the agent's output verbatim — do not summarize, reformat, or selectively include sections.** Every section the agent returned must appear in the file.
 - Steps 2, 4, 5, and 6 need company intel — do not start them until the agent completes and `intel-brief.md` has been written
 - If the company is unidentifiable from the JD (rare): note it, proceed without research, and flag it in the output
 
