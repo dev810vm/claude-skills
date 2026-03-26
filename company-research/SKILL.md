@@ -10,16 +10,25 @@ Research a company using the job description as a starting point, then produce t
 
 ## Inputs
 
-The user provides a job description as a file (PDF, TXT, DOCX) or pasted text.
+The user provides either:
+- A **job description** as a file (PDF, TXT, DOCX) or pasted text, OR
+- A **company name** (and optionally a role title or website URL)
 
-**If no job description is provided, ask:**
-> "Please share the job description — as a file path or pasted text. Do you also have a company name or website URL to start from?"
+Either input is sufficient to run the full research process.
 
-**Extract from the JD before researching:**
+**If a job description is provided, extract before researching:**
 - Company name
 - Role title and team/department if mentioned
 - Any product names, initiatives, or priorities mentioned
 - Any cultural language or values signals in the JD text itself
+
+**If only a company name is provided:**
+- Use it directly as the research target
+- Role title and team context will be unknown — note this in the output and proceed with company-level research
+- If the user also supplied a role title or URL, use those to sharpen the research
+
+**If neither a company name nor a job description is provided, ask:**
+> "What company should I research? You can share a company name, a job description (as a file or pasted text), or both."
 
 ---
 
@@ -27,52 +36,71 @@ The user provides a job description as a file (PDF, TXT, DOCX) or pasted text.
 
 ### Step 1: Identify Research Targets
 
-From the JD, determine:
+From the JD (if available) or the user-provided company name, determine:
 - Company name and primary website domain
 - Whether this is a known public company, startup, nonprofit, or subsidiary
-- Any specific product lines, divisions, or teams referenced in the JD
+- Any specific product lines, divisions, or teams referenced (from JD or user context)
 
 ### Step 2: Run Web Research
 
-Use WebSearch and WebFetch to gather intelligence across these categories. Run searches in parallel where possible.
+**Use the Agent tool to run all web research in parallel.** Pass the company name, role title (if known), and the 8 research categories below. Instruct the agent to fire ALL WebSearch and WebFetch calls simultaneously — do not wait for one to complete before starting the next. The agent should return results organized by category.
 
-**Company fundamentals:**
+> Agent prompt template: "Run all of the following web searches and fetches simultaneously. Return results organized by category. Company: [name]. Role: [title or 'unknown']. [paste all searches below]"
+
+All 8 categories should launch at the same time. Within each category, all searches also fire simultaneously.
+
+---
+
+**Category 1 — Company fundamentals** (run all simultaneously):
 - Search: `"[Company name]" mission values culture`
 - Search: `"[Company name]" recent news 2025 2026`
-- Fetch the company's About page and Careers/Culture page if accessible
+- Fetch the company's About page
+- Fetch the company's Careers/Culture page if accessible
 
-**Business context:**
+**Category 2 — Business context** (run all simultaneously):
 - Search: `"[Company name]" strategy growth product roadmap`
 - Search: `"[Company name]" funding revenue customers OR "[Company name]" annual report`
-- For public companies: search recent earnings call highlights or investor day summaries
+- For public companies: Search recent earnings call highlights or investor day summaries
 
-**The specific team/product:**
+**Category 3 — The specific team/product** (run all simultaneously):
 - Search: `"[Company name]" "[team or product from JD]" engineering blog OR product update`
 - Search: `"[Company name]" "[role title]" team priorities OR challenges`
 
-**Culture and values signals:**
+**Category 4 — Culture and values signals** (run all simultaneously):
 - Fetch the company's careers page or "life at [company]" page
 - Search: `"[Company name]" glassdoor culture OR employee reviews` (for tone signals, not for complaints)
-- Look for any published engineering or product blog
+- Search: `"[Company name]" engineering blog OR product blog`
 
-**Recent developments (last 12 months):**
+**Category 5 — Recent developments (last 12 months)** (run all simultaneously):
 - Search: `"[Company name]" announcement launch partnership 2025 OR 2026`
 - Search: `"[Company name]" press release site:businesswire.com OR site:prnewswire.com`
 
-**Salary data:**
+**Category 6 — Salary data** (run all simultaneously):
 - Search: `"[Company name]" "[role title]" salary site:glassdoor.com`
 - Search: `"[Company name]" "[role title]" salary site:levels.fyi` (especially for tech roles)
 - Search: `"[Company name]" "[role title]" compensation site:blind.com OR site:reddit.com`
 - Search: `[role title] salary "[Company name]" 2025 OR 2026`
-- For public companies or government contractors: search `"[Company name]" H1B salary disclosure OR PERM filing "[role title]"` — these are public records with actual comp figures
+- For public companies or government contractors: Search `"[Company name]" H1B salary disclosure OR PERM filing "[role title]"` — public records with actual comp figures
 - Collect a range: low, median, high, and note the source and recency of each data point
 
-**Employment reviews:**
+**Category 7 — Employment reviews** (run all simultaneously):
 - Search: `"[Company name]" glassdoor reviews 2024 OR 2025 OR 2026`
 - Search: `"[Company name]" layoffs OR "hiring freeze" OR "reorg" 2024 OR 2025 OR 2026`
 - Search: `"[Company name]" work life balance OR "interview process" site:glassdoor.com OR site:blind.com`
 - Look for patterns across multiple reviews rather than outliers; note review recency
 - Flag any significant recent negative signals (mass layoffs, exec turnover, culture shifts)
+
+**Category 8 — Political disposition and public advocacy** (run all simultaneously):
+- Search: `"[Company name]" political donations OR PAC site:opensecrets.org`
+- Search: `"[Company name]" lobbying disclosure OR federal lobbying`
+- Search: `"[Company name]" CEO political statement OR endorsement OR public position`
+- Search: `"[Company name]" DEI OR diversity equity inclusion policy 2024 OR 2025 OR 2026`
+- Search: `"[Company name]" ESG OR sustainability OR environmental policy`
+- Search: `"[Company name]" social policy stance OR immigration OR LGBTQ OR abortion` — only report if official company statements exist; do not report speculation or individual employee views
+- Note industry association memberships that carry a known political lean (e.g., Business Roundtable, Chamber of Commerce, or progressive equivalents)
+- Only document **official company-level signals**: FEC/OpenSecrets records, lobbying disclosures, formal policy statements, CEO official communications
+- Do **not** infer from employee reviews, individual donations, or social media speculation
+- Present signals descriptively — state what the evidence shows, not whether it is good or bad
 
 ### Step 3: Synthesize Findings
 
@@ -188,6 +216,30 @@ Specific adjustments to make to the resume to resonate with this company — key
 
 ---
 
+### Political Disposition & Public Advocacy
+
+**Disposition signal:** [Conservative-leaning / Progressive-leaning / Mixed / No public signals found]
+
+*Based on: [one-line summary of evidence basis — e.g., "PAC donation history and CEO public statements"]*
+
+**Evidence:**
+
+| Signal type | Finding | Source |
+|---|---|---|
+| Political donations (PAC/FEC) | [What was found, or "No data found"] | [opensecrets.org / fec.gov] |
+| Federal lobbying | [Issues lobbied on, or "None on record"] | [source] |
+| Official policy positions | [e.g., DEI commitments, ESG pledges, public stances] | [source] |
+| Leadership public statements | [Any CEO/exec public political statements, or "None found"] | [source] |
+| Industry associations | [Memberships with political alignment signals, or "None identified"] | [source] |
+
+**Gaps / caveats:**
+- [Note if data was sparse, conflicting, or limited to one signal type]
+- [Note if the company is private and has less required public disclosure]
+
+> All findings reflect publicly available records and official statements only. Individual employee views and speculation are excluded. Political disposition does not predict individual team or manager culture.
+
+---
+
 ### Things to Avoid or Be Careful About
 
 [Optional — only include if research surfaces real signals]
@@ -206,6 +258,7 @@ Specific adjustments to make to the resume to resonate with this company — key
 | Culture signals | High / Medium / Low | [why] |
 | Salary data | High / Medium / Low | [why] |
 | Employment reviews | High / Medium / Low | [why] |
+| Political disposition | High / Medium / Low | [why] |
 
 [Note any significant gaps — e.g., "little public information about the [X] team specifically"]
 ```
@@ -227,6 +280,7 @@ Write the complete brief to `intel-brief.md` in the same directory as the job de
 - **Only recommend what can be referenced authentically.** Don't suggest a candidate fake familiarity with something. Frame recommendations as opportunities to demonstrate genuine alignment.
 - **Flag gaps honestly.** If a company has minimal public presence and research turns up little, say so clearly — a candidate who over-researches a stealth startup looks out of touch.
 - **Tie everything back to the role.** Company intel is only useful if it connects to the specific position. Filter out anything that doesn't have a clear application.
+- **Political disposition is descriptive, not prescriptive.** Report what the evidence shows — PAC filings, lobbying records, official statements. Never characterize a company's political position as a positive or negative signal. The candidate determines what matters to them.
 
 ## Additional Resources
 

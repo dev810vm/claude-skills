@@ -1,7 +1,7 @@
 ---
 name: resume-review
 description: This skill should be used when the user asks to "review my resume", "evaluate resume against job", "how well does my resume match this job", "score my resume", "check resume fit", "analyze resume for job description", "does my resume qualify for this role", "improve my resume for this position", provides resume and job description files (PDF, TXT, DOCX, etc.) and wants feedback, or mentions a resume file path. Use this skill whenever a resume, CV, or job description is present (as a file or pasted text) and the user wants evaluation, matching, gap analysis, or improvement suggestions — even if they don't explicitly say "resume review".
-version: 3.0.0
+version: 3.1.0
 ---
 
 # Resume Review & Job Match Evaluator
@@ -21,15 +21,19 @@ The user provides files for both the resume and job description. Accepted format
 **Only ask if no relevant files are found:**
 > "Please provide the resume and job description as files (PDF, TXT, or similar). What are the file paths?"
 
-**Once files are identified:**
-1. Read the resume file using the Read tool
-2. Read the job description file using the Read tool
-3. Read the cover letter if found
-4. If a file can't be read, report the error and ask for an alternative path or format
+**Once files are identified, read all of them simultaneously in a single parallel batch:**
+- Resume file(s)
+- Job description file
+- Cover letter (if found)
+- Any intel-brief or research files found (`intel-brief.md`, `*research*.md`, `*intel*.md`)
+- All previous versioned review files (`*-review-*-v*.md`)
+- Any other additional materials
+
+Fire all Read calls at the same time — do not read one file and then the next. If a file can't be read, report the error and ask for an alternative path or format.
 
 **Optional additional materials:** The user may also supply a cover letter, writing samples, portfolio links, academic transcript, application Q&A responses, or any other supporting documents. If provided, read all of them — they can resolve gaps that the resume alone doesn't evidence.
 
-**Previous runs:** At the start of every run, scan the output directory for existing review files matching `[resume-filename-without-extension]-review-[company-slug]-v*.md`. Read all found files — they are previous runs of this skill. Use them to populate the Run Comparison section in the new report. Every run always produces a new versioned file; previous runs are never overwritten.
+**Previous runs:** Include these in the parallel file read batch above — scan for `[resume-filename-without-extension]-review-[company-slug]-v*.md` and read all found files. Use them to populate the Run Comparison section in the new report. Every run always produces a new versioned file; previous runs are never overwritten.
 
 **Resume-only mode:** If no job description is available, skip Steps 0, 1 (JD extract), 3 (ATS), 4 (confidence scoring), 5 (personas), 6 (gap triage), and 7 (scoring), and produce instead: ATS formatting check, writing quality assessment, bullet rewrite suggestions, and general positioning feedback. Note in the output that full matching requires a job description.
 
@@ -37,25 +41,49 @@ Optional context from the user: target role level, industry, priorities, candida
 
 ---
 
-## Pre-Step: Company Research
+## Execution Order
 
-Before evaluating the resume, gather intelligence on the hiring company. This informs the domain-specialist lens, gap prioritization, and recommendations throughout the analysis.
+Run the evaluation in parallel phases. Do not run steps sequentially when they are listed in the same phase — start all steps in a phase at the same time.
 
-**Check for existing research first:**
-- Look for a file named `intel-brief.md` or any file matching `*research*.md` or `*intel*.md` in the same directory as the job description file
-- If found and recent (within the last 30 days based on content), read it and use it — skip re-running the research
+```
+[Glob + parallel file reads]
+         |
+[Step 0: Dealbreaker Check]
+         |
+[Step 1: Parse Resume + JD — extract company name]
+         |
+    ┌────┴──────────────────────┬─────────────────────────┐
+[Company Research]        [Step 3: ATS]       [Step 9: Writing Quality]
+    └────┬──────────────────────┘
+         |  (both complete)
+    ┌────┴──────────────────────┐
+[Step 2: Domain Lens]  [Step 4: Confidence Scoring]
+    └────┬──────────────────────┘
+         |  (both complete)
+    ┌────┴──────────────┬──────────────────────────┐
+[Step 5: Personas] [Step 6: Gap Triage] [Step 7: Materials]
+    └────┬──────────────┴──────────────────────────┘
+         |
+[Step 8: Overall Scoring]
+         |
+    ┌────┴───────────────────────────────┐
+[Step 10: Video Interview]   [Step 11: Ceiling Analysis]
+    └────┬───────────────────────────────┘
+         |
+[Write output file]
+```
 
-**If no existing research is found:**
-- Use the Skill tool to invoke the `company-research` skill, passing the job description as input
-- The company-research skill will produce an intel brief and save it to the directory
-- Read the resulting file before proceeding
+**Company Research** runs as a parallel branch starting immediately after Step 1 identifies the company name:
+- If `intel-brief.md` or a file matching `*research*.md` / `*intel*.md` is already present and recent (within 30 days), use it — no need to re-run
+- Otherwise invoke the `company-research` skill via the **Agent tool with `run_in_background: true`**, passing the full job description text and resume file path as context. Do NOT use the Skill tool here — it blocks the main thread. The Agent tool with `run_in_background` allows the main thread to continue immediately.
+- **Immediately after launching the background agent**, proceed with Steps 3 and 9 in parallel — do not wait for the agent to finish
+- Steps 2, 4, 5, and 6 need company intel — do not start them until company research completes
+- If the company is unidentifiable from the JD (rare): note it, proceed without research, and flag it in the output
 
-**If the company is unidentifiable from the JD (rare):** Note this, proceed without company research, and flag it in the output.
-
-The company intel should inform:
+Company intel informs:
 - Step 2: Domain-specialist lens (reviewer profile, company vocabulary, competitive landscape)
 - Step 6: Gap triage (which gaps matter most given the company's current priorities)
-- Output: "Company Intel Summary" section — a condensed version of what the research revealed
+- Output: "Company Intel Summary" section
 
 ---
 
@@ -93,9 +121,18 @@ If any dealbreaker is triggered, flag it immediately and prominently before proc
 
 The role archetype shapes which JD requirements deserve most weight in scoring.
 
+> **→ PHASE 1 PARALLEL:** As soon as Step 1 identifies the company name, launch all three of the following simultaneously — do not wait for any one to finish before starting the others:
+> - **Company Research** (see Execution Order section above)
+> - **Step 3: ATS Compatibility Check** (independent of company intel)
+> - **Step 9: Achievement Quality & Writing Assessment** (independent of everything)
+>
+> Proceed to Step 2 and Step 4 only after both Company Research and Step 3 are complete.
+
 ### Step 2: Build the Domain-Specialist Lens
 
-Before scoring, construct a mental model of the ideal reviewer at this company. Use the company intel from the Pre-Step to ground this.
+> **Depends on:** Company Research complete. Runs in parallel with Step 4.
+
+Construct a mental model of the ideal reviewer at this company. Use the company intel to ground this.
 
 1. **Reviewer profile**: What's the hiring manager's likely title? What does their day-to-day work look like? What makes them immediately excited or immediately skeptical about a resume?
 2. **Company vocabulary**: What 6–10 terms appear in the JD (and company research) that signal "insider"? What synonyms would an outsider use that would signal unfamiliarity?
@@ -106,6 +143,8 @@ Before scoring, construct a mental model of the ideal reviewer at this company. 
 This lens informs all scoring and recommendation decisions below.
 
 ### Step 3: ATS Compatibility Check
+
+> **Depends on:** Step 1 complete. Runs in parallel with Company Research and Step 9.
 
 Applicant Tracking System (ATS) software processes resumes before a human sees them. 83% of companies use AI for resume screening, and 88% of employers acknowledge their filters reject qualified candidates. The systems range from simple keyword matchers (Taleo, legacy iCIMS) to semantic AI platforms (Eightfold, Workday/HiredScore) — the approach below accounts for both.
 
@@ -172,13 +211,20 @@ Identify all technical skills, tools, titles, and key phrases from the JD and cl
 - Modern AI target: 70–80% combined exact + semantic. Flag if below.
 - Priority for both: required skills > repeated JD terms > preferred skills > soft skill words
 
+**In the output table, use these exact values in the "In Your Resume?" column:**
+- Found word-for-word → `✓ Found word-for-word`
+- Synonym or inferable → `~ Implied — you used "[the actual term used]"`
+- Missing → `✗ Not found`
+
 **Recommendations:**
-- Tier 3 (absent) items: add to resume if the experience exists
-- Tier 2 (semantic) items: consider adding the exact JD term alongside the synonym to cover both system types — this costs nothing and removes the legacy ATS risk
+- Missing keywords: add to resume if the experience exists
+- Synonym keywords: add the exact JD phrase alongside what you have — covers older ATS systems that don't understand synonyms
 
 See `references/scoring-rubric.md` → ATS section for the formatting failure table.
 
 ### Step 4: Confidence-Scored Matching
+
+> **Depends on:** Step 3 (ATS keywords needed) and Company Research complete. Runs in parallel with Step 2.
 
 For each required and preferred qualification, score the confidence of the match using this weighted formula:
 
@@ -202,7 +248,11 @@ For each required and preferred qualification, score the confidence of the match
 
 See `references/scoring-rubric.md` → Confidence Scoring section for calibration examples.
 
+> **→ PHASE 3 PARALLEL:** Once Step 4 is complete, launch Steps 5, 6, and 7 simultaneously — they are independent of each other.
+
 ### Step 5: Five-Persona Review Simulation
+
+> **Depends on:** Steps 2 and 4 complete. Runs in parallel with Steps 6 and 7.
 
 Simulate how five distinct readers evaluate this resume. Each has a different time budget and a different decision to make.
 
@@ -221,6 +271,8 @@ For each persona, output:
 
 ### Step 6: Gap Triage
 
+> **Depends on:** Steps 2 and 4 complete. Runs in parallel with Steps 5 and 7.
+
 Classify every gap as:
 - **Fatal** — likely to disqualify; hard requirement not met; recommend addressing before applying
 - **Serious** — weakens the application noticeably; worth reframing, bridging, or noting in a cover letter
@@ -238,6 +290,8 @@ For each serious or fatal gap:
 - Declining trajectory (senior title → junior title) — flag for the candidate; suggest framing in cover letter as intentional pivot with reasoning
 
 ### Step 7: Additional Materials Assessment
+
+> **Depends on:** Step 4 complete (gap list needed). Runs in parallel with Steps 5 and 6.
 
 If the user has provided any supplementary materials beyond the resume and JD, evaluate each one.
 
@@ -258,6 +312,8 @@ If the user has provided any supplementary materials beyond the resume and JD, e
 - Suggest a concrete rewrite of the weakest paragraph
 
 ### Step 8: Overall Match Scoring
+
+> **Depends on:** Steps 5, 6, and 7 all complete (gap resolutions from Step 7 update confidence scores).
 
 Calculate sub-scores and an overall weighted score. **Use the weights for the role archetype identified in Step 1.** If additional materials resolved gaps (Step 7), update confidence scores before final scoring.
 
@@ -299,6 +355,8 @@ See `references/scoring-rubric.md` for detailed per-dimension criteria.
 
 ### Step 9: Achievement Quality & Writing Assessment
 
+> **Depends on:** Step 1 complete (resume bullets needed). Fully independent of company research, ATS, and confidence scoring — runs in parallel with Company Research and Step 3 in Phase 1.
+
 Recruiters in 2026 prioritize outcomes over responsibilities.
 
 **Quantification check:**
@@ -315,7 +373,11 @@ Recruiters in 2026 prioritize outcomes over responsibilities.
 
 Identify the 3 weakest bullets and suggest specific rewrites.
 
+> **→ PHASE 5 PARALLEL:** Once Step 8 is complete, launch Steps 10 and 11 simultaneously.
+
 ### Step 10: AI Video Interview Assessment (conditional)
+
+> **Depends on:** Step 8 complete. Runs in parallel with Step 11.
 
 Include this section only if the company is known or likely to use AI video screening (HireVue, Spark Hire, Sonru, or similar). Check company research for signals: large enterprise employer, high-volume role, or recruiter/Glassdoor reports of asynchronous video interviews.
 
@@ -331,6 +393,8 @@ Modern platforms (HireVue dominant) transcribe answers and score them using NLP 
 - **Game-based assessments** (cognitive/personality): measure processing speed, pattern recognition, and decision-making; cannot be easily gamed — approach calmly, don't over-optimize
 
 ### Step 11: Ceiling Analysis
+
+> **Depends on:** Step 8 complete. Runs in parallel with Step 10.
 
 Summarize the improvement potential:
 - **Current score**: overall match % now
@@ -358,6 +422,22 @@ Summarize the improvement potential:
 
 ---
 
+### Quick Kill List
+
+The top changes that will move the needle most — fix these first.
+
+| # | Change | Where | Impact |
+|---|---|---|---|
+| 1 | [Most impactful action] | [Resume section] | [Why it matters] |
+| 2 | [Action] | [Section] | [Why] |
+| 3 | [Action] | [Section] | [Why] |
+| 4 | [Action] | [Section] | [Why] |
+| 5 | [Action] | [Section] | [Why] |
+
+[Only include up to 5 items. Fewer is fine if there aren't 5 high-impact changes. Rank strictly by estimated score or outcome impact — not by ease.]
+
+---
+
 ### Company Intel Summary
 
 [3–5 sentences drawn from the research brief: what matters most about this company right now, and how it shapes the evaluation.
@@ -366,16 +446,18 @@ Link to the full intel brief file for details.]
 ---
 
 ### ATS Assessment
-Estimated keyword match (legacy/exact): ~X%
-Estimated keyword match (modern AI/semantic): ~X%
+Keyword match — older systems (exact words only): ~X%
+Keyword match — modern AI systems (includes synonyms): ~X%
 Formatting issues: [None / list each]
 
-| JD Keyword | Resume Status | Tier |
+| Keyword from Job Posting | In Your Resume? | What to Do |
 |---|---|---|
-| `keyword` | [verbatim / inferred from "X" / absent] | Exact / Semantic / Absent |
+| `keyword` | ✓ Found word-for-word | Nothing — safe on all systems |
+| `keyword` | ~ Implied — you used "[synonym]" | Safe for modern systems; add the exact phrase to cover older ones |
+| `keyword` | ✗ Not found | Add this if the experience exists |
 
-Priority additions (Tier 3 only): `kw1`, `kw2`, `kw3`
-Worth adding exact term alongside synonym (Tier 2): `kw1`, `kw2`
+Missing entirely — add these if the experience exists: `kw1`, `kw2`, `kw3`
+Present as synonym — consider adding the exact phrase too: `kw1`, `kw2`
 
 ---
 
@@ -395,10 +477,10 @@ Worth adding exact term alongside synonym (Tier 2): `kw1`, `kw2`
 
 ### Confidence-Scored Match Summary
 
-| Requirement | Type | Confidence | Band |
+| Requirement | Required? | Match Strength | Meaning |
 |---|---|---|---|
-| [Req 1] | Required | X% | DIRECT / TRANSFERABLE / ADJACENT / WEAK / GAP |
-| [Req 2] | Preferred | X% | ... |
+| [Req 1] | Required | X% | Strong match — cite it directly |
+| [Req 2] | Preferred | X% | Transferable — present with a bridge / Partial match — mention but don't lead / Weak — address in cover letter / Not evidenced |
 
 ---
 
