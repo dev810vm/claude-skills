@@ -1,10 +1,10 @@
 # Scoring Rubric — Resume Review Skill
 
-Detailed criteria for scoring each of the five evaluation dimensions.
+Detailed criteria for scoring each of the five evaluation dimensions. Weights vary by role archetype — see the main skill for the three weight sets (IC Technical, People Leadership, Cross-Functional).
 
 ---
 
-## 1. Technical Skills (30% weight)
+## 1. Technical Skills
 
 Score based on how many required and preferred technical skills are evidenced in the resume.
 
@@ -24,7 +24,7 @@ Score based on how many required and preferred technical skills are evidenced in
 
 ---
 
-## 2. Experience & Seniority (25% weight)
+## 2. Experience & Seniority
 
 Evaluate whether the candidate's experience level, career trajectory, and work history match the role requirements.
 
@@ -52,7 +52,7 @@ Evaluate whether the candidate's experience level, career trajectory, and work h
 
 ---
 
-## 3. Domain Knowledge (20% weight)
+## 3. Domain Knowledge
 
 Assess familiarity with the industry, product area, or functional domain the role requires.
 
@@ -73,7 +73,7 @@ Assess familiarity with the industry, product area, or functional domain the rol
 
 ---
 
-## 4. Education & Credentials (15% weight)
+## 4. Education & Credentials
 
 Compare stated educational requirements and certifications against the resume.
 
@@ -93,7 +93,7 @@ Compare stated educational requirements and certifications against the resume.
 
 ---
 
-## 5. Soft Skills & Culture Fit (10% weight)
+## 5. Soft Skills & Culture Fit
 
 Evaluate signals for the interpersonal and cultural attributes the JD emphasizes.
 
@@ -152,4 +152,4 @@ The following formatting choices cause ATS systems to misparse or reject resumes
 | Uncommon fonts or Unicode symbols | May render as garbage characters | Use standard fonts, ASCII bullets |
 | Non-standard section headings | "Career Journey" won't be recognized as "Work Experience" | Use conventional headings |
 
-Note: PDFs are increasingly supported by modern ATS, but `.docx` is still safer when unsure of the system being used.
+Note: Text-based PDF is now the recommended default for most modern ATS. Use `.docx` only if the posting explicitly requests it or the employer is known to use iCIMS or legacy Taleo.
