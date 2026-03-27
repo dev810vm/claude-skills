@@ -1,6 +1,8 @@
 # Claude Skills — Job Search Toolkit
 
-A collection of Claude Code skills for job seekers. Drop these into Claude and get AI-powered resume review, company research, and application strategy — without copy-pasting into a chat window.
+A collection of [Claude Code](https://claude.ai/download) skills for job seekers. Drop these into Claude Code and get AI-powered resume review, company research, and application strategy — without copy-pasting into a chat window.
+
+> **Requires [Claude Code](https://claude.ai/download)** — the CLI tool, not the web interface. These are skill files that Claude Code loads and executes; they won't work by pasting them into Claude.ai.
 
 ---
 
@@ -65,3 +67,9 @@ The skills are designed to:
 - **Add a cover letter** — put it in the same folder as your resume; resume-review will factor it into gap analysis
 - **Rerun after edits** — resume-review is versioned, so rerunning after you update your resume creates a new report and shows you what improved
 - **Multiple resume versions** — if you have more than one resume file in the folder, the skill reads all of them and treats the differences as context for the review
+
+---
+
+## Maintenance
+
+The reference files in `resume-review/references/` and `company-intel/references/` document the research methodology and ATS/AI hiring data that powers the skills. The hiring tech landscape moves fast — these files should be re-validated against current sources every 6 months. See [CHANGELOG.md](./CHANGELOG.md) for the history of what's been updated and why.

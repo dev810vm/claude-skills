@@ -1,0 +1,20 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Skill output files (written to user working directories, not this repo)
+intel-brief.md
+*-review-*-v*.md
+
+# User data — resumes, JDs, cover letters should never be committed here
+*.rtf
+*.pdf
+*.docx
+*.doc
+*.pages
+
+# Node / Python / misc
+node_modules/
+__pycache__/
+*.pyc
+.env
