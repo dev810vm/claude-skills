@@ -1,89 +1,97 @@
-# Reference Files Changelog
+# Changelog
 
-Tracks methodology and content changes to the reference files in this directory. Most recent changes first.
-
----
-
-## 2026-03-26 — Deep research validation pass
-
-**Files:** `ai-screening-research.md`, `scoring-rubric.md`
-**Trigger:** Full validation of all claims against current sources (47 claims checked, 31 confirmed, 4 corrected)
-
-### ai-screening-research.md
-
-| Change | Old | New | Reason |
-|---|---|---|---|
-| Workday + Paradox acquisition status | "announced 2025, pending close" | "closed October 1, 2025" | Acquisition completed; source: Workday Newsroom Oct 1 2025 |
-| HireVue optimal response length | "Target 90–120 seconds per answer" | "Target 60–90 seconds delivery; employer limit is 90–120 seconds" | Coaching sources consistently cite 60–90s as optimal delivery, distinct from the employer-set time window |
-| Stanford age bias study framing | "gave older male candidates higher ratings than female candidates and younger candidates" | Reframed to: bias runs specifically against older women at the age/gender intersection | Original framing understated the finding; Stanford's paper identifies older women as the harmed group, not merely that men were favored |
-| SAP Joule + Winston integration | "integrating with SAP's Joule AI" (implied near-term) | "connected as linked agents — combined integration available H2 2026" | SAP confirmed H2 2026 timeline; source: SAP News Center Mar 2026 |
-
-### scoring-rubric.md
-
-| Change | Old | New | Reason |
-|---|---|---|---|
-| ATS keyword match rate | "65–75% to pass modern AI-powered ATS screening" | "65–75% threshold; aim for 80%+ for competitive roles" | Research found practitioners increasingly advise 80%+ for high-volume or competitive postings; Jobscan's own guidance has shifted upward |
+All changes to this repo. Most recent first.
 
 ---
 
-## 2026-03-25 — scoring-rubric: remove hardcoded weights, fix file format advice
+## 2026-03-26
 
-**File:** `scoring-rubric.md`
-**Trigger:** Weights moved from reference file to SKILL.md so they can vary by role archetype
+### resume-review — execution order fix
+- **Problem:** background agent for company research completed after the report was already written, leaving company-intel-dependent sections empty
+- **Fix:** Steps 3 (ATS) and 9 (Writing Quality) now run first in parallel (text-only, no web calls), then company research runs as a blocking synchronous Agent call, then Steps 2/4/5/6 proceed with full intel
+- **Files:** `resume-review/SKILL.md`
 
-| Change | Old | New | Reason |
-|---|---|---|---|
-| Section headers | Included hardcoded weights (e.g., "Technical Skills (30% weight)") | Weights removed from headers | Weights differ by role archetype (IC Technical, People Leadership, Cross-Functional); hardcoding one set was misleading |
-| File format advice | "PDFs are increasingly supported by modern ATS, but `.docx` is still safer when unsure" | "Text-based PDF is now the recommended default; use .docx only for iCIMS, Taleo, or if explicitly requested" | Reflects 2025–2026 consensus; PDF default is now accurate for most platforms |
-| Intro line | "Detailed criteria for scoring each of the five evaluation dimensions." | Added note pointing to SKILL.md for weight sets | Cross-reference added to avoid confusion |
-
----
-
-## 2026-03-25 — ai-screening-research.md: major research refresh
-
-**File:** `ai-screening-research.md`
-**Trigger:** Initial content based on pre-2024 knowledge; refreshed against 2025–2026 primary sources
-
-### Methodology and framing
-
-| Area | Change | Reason |
-|---|---|---|
-| "75% rejected by ATS" stat | Explicitly debunked and removed | Traces to Preptel (closed 2013); no documented methodology; cited widely but fabricated |
-| Adoption table | Replaced bullet list with sourced table including confidence notes | More scannable; citations visible |
-| Tool landscape | Rewrote entirely | M&A activity in 2024–2025 changed the market significantly |
-| "Modern AI: semantic embeddings" section | Replaced with three-layer model (Parsing / Scoring / AI Co-Pilot) | More accurate to how enterprise ATS actually work; co-pilot LLM layer was absent from original |
-| Platform tiers | Added Legacy / NLP / Vector / No-AI / Conversational taxonomy | Clearer than generic "modern AI" grouping |
-
-### Key factual additions
-
-- Workday + HiredScore acquisition (March 2024) and A/B/C/D grading model documented
-- HiredScore explicitly noted as non-generative AI (chose explainability; all decisions auditable)
-- Eightfold RNN architecture documented (sequence modeling of career trajectory)
-- Greenhouse confirmed as no native AI scoring — human-in-the-loop by design
-- BambooHR added (no AI scoring; SMB HRIS)
-- Paradox (Olivia) clarified as conversational top-of-funnel tool, not resume ranking
-- Taleo documented as maintenance mode; Oracle Recruiting Cloud migration active
-- Formatting failures section expanded with specific causes (Canva PDFs, scanned PDFs, text boxes, headers/footers)
-- Keyword density sweet spot added: 15–25 keywords at 2–3% word count; stuffing detection noted
-- Manipulation triggers section added: white-font, prompt injection, near-verbatim JD copy
-- Short tenure and employment gap sections added with ATS mitigation strategies
-- Career change paths documented for traditional ML vs. vector/embedding systems
-- HireVue section: facial analysis confirmed discontinued Jan 2021; STAR scoring framework noted; 70M+ training interviews
-- AI content detection section added with employer policy spectrum (TopResume 2025, Resume Now 2025)
-- Bias section added: Brookings 2025 (racial/gender), Stanford Oct 2025 (age), UW Nov 2025 (bias amplification)
-- Regulatory section added: EU AI Act timelines, NYC Local Law 144, Mobley v. Workday litigation
-- Cover letter trends: 83% of hiring managers reading cover letters (Resume Genius 2025)
-- Key Takeaways section added as quick-reference summary
-- Sources section added with full citation list
+### reference files — deep research validation pass
+- Validated 47 claims in `ai-screening-research.md` against current sources; 31 confirmed, 4 corrected:
+  - Workday + Paradox acquisition: closed Oct 1, 2025 (was "pending")
+  - HireVue optimal response: 60–90s delivery (was 90–120s)
+  - Stanford age bias study: reframed as bias *against older women* specifically
+  - SAP Joule + Winston integration: H2 2026 timeline clarified
+- `scoring-rubric.md`: ATS keyword match rate updated — 80%+ recommended for competitive roles
+- **Files:** `resume-review/references/ai-screening-research.md`, `resume-review/references/scoring-rubric.md`
 
 ---
 
-## Format
+## 2026-03-25
 
-Each entry documents:
-- **Date** — when the change was made
-- **File(s)** — which reference files were affected
-- **Trigger** — what prompted the change (research pass, feedback, new study, etc.)
-- **Change table** — what changed, old vs. new, and why
+### resume-review — v3.1.0
+- Parallel file reads at startup (all files in one batch)
+- Company research launched via background Agent immediately after Step 1 parse
+- Phase boundary markers added to each evaluation step
+- ATS keyword table: replaced internal jargon with plain-language columns and emoji status indicators
+- Confidence score table: `Band` column replaced with plain English `Meaning` descriptions
+- Quick Kill List added to output (top 5 most impactful changes, shown early in report)
+- **Files:** `resume-review/SKILL.md`
 
-When a major claim is updated, the original source and the replacement source are both noted.
+### resume-review — allowed-tools frontmatter
+- Added `allowed-tools` frontmatter field to pre-approve tool calls (Read, Write, Glob, Grep, WebSearch, WebFetch, Agent)
+- Fixed field name from `allowedTools` (camelCase) to `allowed-tools` (hyphenated — correct per Claude Code docs)
+- **Files:** `resume-review/SKILL.md`
+
+### resume-review — intel-brief write fix
+- Background agent was blocked from writing files in sandboxed context
+- Fix: agent returns complete intel brief as response text; main thread writes `intel-brief.md` verbatim
+- Agent prompt updated to explicitly list all required sections and forbid truncation
+- **Files:** `resume-review/SKILL.md`, `company-intel/SKILL.md`
+
+### scoring-rubric — remove hardcoded weights, fix file format advice
+- Removed hardcoded dimension weights from section headers (weights vary by role archetype; moved to SKILL.md)
+- Updated file format recommendation: text-based PDF is now the default; .docx only for iCIMS, Taleo, or explicit requests
+- **Files:** `resume-review/references/scoring-rubric.md`
+
+### ai-screening-research.md — major research refresh
+- Debunked "75% rejected by ATS" statistic (traces to Preptel, closed 2013, no methodology)
+- Rewrote tool landscape section to reflect 2024–2025 M&A: Workday+HiredScore, SAP+SmartRecruiters
+- Added three-layer ATS model: Parsing / Scoring / AI Co-Pilot
+- Added platform tier taxonomy: Legacy / NLP / Vector / No-AI / Conversational
+- Added keyword density guidance, manipulation trigger section, career trajectory signals
+- Added HireVue post-2021 capabilities, AI content detection, bias research (Brookings, Stanford, UW)
+- Added regulatory section: EU AI Act timelines, NYC Local Law 144, Mobley v. Workday
+- Added sources section
+- **Files:** `resume-review/references/ai-screening-research.md`
+
+### company-research → company-intel rename
+- Renamed skill directory and all internal references from `company-research` to `company-intel`
+- **Files:** `company-intel/SKILL.md`, `company-intel/README.md`, `resume-review/SKILL.md`
+
+### company-intel — major skill update
+- Now accepts company name OR job description as input (previously required JD)
+- Step 2 restructured into 8 explicit parallel research categories via Agent tool delegation
+- Added Political Disposition & Public Advocacy research category and output section
+- Output file logic: skip write when called from background agent; return text only
+- **Files:** `company-intel/SKILL.md`
+
+### docs — README files
+- Added `README.md` at repo root, `resume-review/README.md`, `company-intel/README.md`
+- Each README explains all report sections, reference file methodologies, and scoring approach
+- Acronyms spelled out on first use (ATS, IC, HR, JD, PAC, FEC, DEI, ESG, EU AI Act, UW)
+- **Files:** `README.md`, `resume-review/README.md`, `company-intel/README.md`
+
+---
+
+## Earlier (pre-2026-03-25)
+
+### resume-review — auto-detect files
+- Skill now globs current working directory for resume, JD, and cover letter before asking the user
+- Reads all versions of each file type (e.g., multiple cover letter drafts)
+- **Files:** `resume-review/SKILL.md`
+
+### resume-review — versioned output
+- Output files are versioned: `[resume]-review-[company]-v1.md`, `v2.md`, etc.
+- Each run produces a new file; previous runs are never overwritten
+- Run comparison section added to report
+- **Files:** `resume-review/SKILL.md`
+
+### Initial commit
+- `resume-review` skill with scoring rubric, reframe strategies, and ATS research reference files
+- `company-research` skill (later renamed `company-intel`)
