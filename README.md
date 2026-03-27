@@ -43,7 +43,7 @@ That's it. The skills are available in any Claude Code session immediately.
 
 ## How It Works
 
-These are [Claude Code skills](https://docs.anthropic.com/claude-code) — markdown files that give Claude a detailed set of instructions for a specific task. When you trigger a skill, Claude follows those instructions using its built-in tools (web search, file reading, etc.).
+These are [Claude Code skills](https://docs.anthropic.com/en/claude-code/overview) — markdown files that give Claude a detailed set of instructions for a specific task. When you trigger a skill, Claude follows those instructions using its built-in tools (web search, file reading, etc.).
 
 The skills are designed to:
 - **Auto-detect files** in your current directory — no need to specify file paths

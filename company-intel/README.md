@@ -1,6 +1,6 @@
 # Company Intel Skill
 
-Researches a company and produces an intelligence brief: what they're focused on right now, what to mention in your cover letter and resume, salary data, employee sentiment, and political disposition — all from public sources.
+Generic cover letters get ignored. The candidates who stand out walk in knowing what the company is actually focused on right now — not what their website says, but what they said in earnings calls, blog posts, and press releases last quarter. This skill does that research automatically and tells you exactly what to mention, what to avoid, and what they're likely to pay.
 
 ---
 

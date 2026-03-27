@@ -1,6 +1,6 @@
 # Resume Review Skill
 
-Scores your resume against a job description, simulates how different screeners read it, flags gaps, and gives you a prioritized list of the most impactful changes to make.
+Most resumes don't fail because the candidate isn't qualified. They fail because a bot filtered them out before a human ever looked. This skill fights back — it scores your resume against the job description, simulates exactly how automated systems and human reviewers read it, identifies what's getting you filtered, and tells you the highest-impact fixes to make right now.
 
 ---
 
