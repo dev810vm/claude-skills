@@ -384,6 +384,26 @@ Recruiters in 2026 prioritize outcomes over responsibilities.
 
 Identify the 3 weakest bullets and suggest specific rewrites.
 
+**Linguistic Assertiveness Check:**
+
+Peer-reviewed research (arxiv 2508.16673, 2025) shows LLMs systematically score formal academic English patterns lower than direct American business English — a 0.4–0.5 point penalty on a 1–5 scale regardless of content quality. Scan every bullet and flag instances from the following categories:
+
+| Category | Patterns to flag |
+|---|---|
+| Passive/hedging constructions | "was responsible for", "was tasked with", "helped with", "assisted with", "supported", "contributed to", "participated in", "was involved in", "was part of a team" |
+| Nominalizations (verb → noun) | "implementation of", "management of", "development of", "oversight of", "facilitation of", "coordination of", "execution of" |
+| Hedging qualifiers | "somewhat", "relatively", "generally", "often", "typically", "in some capacity", "to a degree", "various", "multiple" (when used vaguely) |
+| AI signature phrases | "leveraged", "spearheaded", "utilized", "facilitated", "passionate about", "results-driven", "detail-oriented", "collaborated with cross-functional teams", "demonstrated ability to", "ensured", "strategic", "innovative" |
+| Structural uniformity | Flag if >60% of bullets open with the same verb or follow the same grammatical template — reads as AI-generated to both LLM screeners and human reviewers |
+
+**Scoring:** Count flagged instances across all bullets. Rate assertiveness:
+- 0–2 flags: Strong — direct and confident language
+- 3–5 flags: Moderate — a few phrases softening the impact
+- 6–10 flags: Weak — pattern of hedging; LLM screeners will score this lower
+- 10+ flags: Critical — formal academic register detected; rewrite priority
+
+**Output:** List the top 5 most damaging flagged phrases with their bullet context and a direct rewrite. For candidates with 6+ flags, note: "Your resume uses formal/hedging language patterns that AI screening systems score lower — this affects your ranking before a human reads it."
+
 > **→ PHASE 5 PARALLEL:** Once Step 8 is complete, launch Steps 10 and 11 simultaneously.
 
 ### Step 10: AI Video Interview Assessment (conditional)
@@ -393,12 +413,12 @@ Identify the 3 weakest bullets and suggest specific rewrites.
 Include this section only if the company is known or likely to use AI video screening (HireVue, Spark Hire, Sonru, or similar). Check company research for signals: large enterprise employer, high-volume role, or recruiter/Glassdoor reports of asynchronous video interviews.
 
 **How AI video screening works:**
-Modern platforms (HireVue dominant) transcribe answers and score them using NLP — they evaluate what you say, how you structure it, vocabulary, and whether your answer demonstrates the competencies the role requires. Facial expression analysis was officially discontinued by HireVue in 2021 under regulatory pressure, but speech pace, filler word frequency, and answer length still appear in transcripts. Scores are benchmarked against top performers in similar roles at that company.
+Modern platforms (HireVue dominant) transcribe answers and score them using NLP — they evaluate what you say, how you structure it, vocabulary, and whether your answer demonstrates the competencies the role requires. Facial expression analysis and audio speech pattern analysis (tone, pace) were both discontinued. Only transcribed text is scored. Filler words matter because they appear verbatim in the transcript — not because audio is analyzed. Scores are benchmarked against top performers in similar roles at that company, using a domain-adapted RoBERTa model fine-tuned on interview data.
 
 **Guidance to include in the report if applicable:**
 - Use **STAR format** for every behavioral question (Situation, Task, Action, Result) — HireVue's scoring framework is built around this structure
 - **Front-load the Action and Result** — NLP models score on content relevance; don't build up to the answer, lead with it
-- Target **90–120 seconds per answer** — responses that run significantly short or over tend to score lower
+- Target **60–90 seconds per answer** — most employers set a 90–120 second limit, but optimal delivery is 60–90 seconds; responses at the very edge of the time limit tend to score lower
 - **Minimize filler words** (um, like, you know) — these appear verbatim in the transcript that the AI scores
 - **Technical setup**: neutral background, eye-level camera, well-lit, quiet environment — not scored by AI, but affects human reviewer impression if the application advances
 - **Game-based assessments** (cognitive/personality): measure processing speed, pattern recognition, and decision-making; cannot be easily gamed — approach calmly, don't over-optimize
@@ -569,6 +589,14 @@ Present as synonym — consider adding the exact phrase too: `kw1`, `kw2`
 Bullets with metrics: X of Y (X%)
 AI fingerprint flags: [None / list terms found]
 `-ing` bullet endings found: [None / count]
+
+**Linguistic Assertiveness:** [Strong / Moderate / Weak / Critical] — [X] flags across [Y] bullets
+
+| Flagged phrase | Category | Bullet context | Rewrite |
+|---|---|---|---|
+| "[phrase]" | [Hedging / Nominalization / AI signature / etc.] | "[…context…]" | "[direct rewrite]" |
+
+[Show top 5 most damaging flags. If 6+ total flags: call out the formal/hedging language pattern explicitly and note that AI screening systems score this lower before a human reads it.]
 
 **3 weakest bullets to rewrite:**
 1. "[current]" → "[suggested rewrite]"
