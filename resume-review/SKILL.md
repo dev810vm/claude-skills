@@ -159,6 +159,7 @@ Applicant Tracking System (ATS) software processes resumes before a human sees t
 - **Legacy (Taleo, older iCIMS):** Rule-based exact keyword matching. Very format-sensitive. Synonyms do not match.
 - **NLP-based (Workday/HiredScore, modern iCIMS, Lever):** Semantic matching plus heavy job title weighting. Workday specifically penalizes title mismatches significantly regardless of skills match.
 - **Vector/embedding (Eightfold, HiredScore deep scoring):** Models full career trajectory via neural networks — scores skill recency, company/industry similarity, and likely next career move. Skills not in the platform's taxonomy may not register even semantically.
+- **Generative AI / criteria-matching (Gem):** Dominant in venture-backed tech (Stripe, Airbnb, Databricks, Reddit, DoorDash). Uses Azure OpenAI to score candidates against recruiter-defined criteria derived from the JD — not against patterns from historical hires. Each criterion is scored individually then averaged. PII is stripped before scoring. Exact JD language matters more than synonyms here; mirror the JD vocabulary closely. **Critical:** full application history at that company is visible to the recruiter — prior rejection reasons, interview scorecard notes, and engagement history all travel with the candidate.
 - **No native AI scoring (Greenhouse):** All evaluation is human-in-the-loop. Candidates who pass formatting reach a human reviewer.
 
 **File format:**
@@ -178,6 +179,9 @@ Research shows 60%+ of AI systems now filter on skills before reading job histor
 
 **Knockout questions:**
 Many ATS include hard-threshold yes/no questions (visa authorization, minimum years of experience, required certifications, location, salary range). These are binary — a single "No" triggers automatic disqualification before any scoring. Flag if the JD contains language suggesting knockout criteria and advise the candidate to answer honestly and carefully.
+
+**Prior application history (tech companies):**
+If the employer is a venture-backed or mid-market tech company (likely using Gem), flag: prior applications at that company are visible in the recruiter's view — including rejection reasons, interview scorecard notes, and engagement history. If the candidate has applied before and was rejected, they should be prepared to address what has changed since. This does not disqualify them, but it is visible context the recruiter will have.
 
 **Keyword density:**
 - Optimal range: 15–25 relevant keywords at 2–3% of total word count
@@ -677,4 +681,4 @@ Translate internal concepts into plain language for the reader:
 
 - **`references/scoring-rubric.md`** — Detailed per-dimension scoring criteria, ATS formatting failure table, confidence scoring calibration
 - **`references/reframe-strategies.md`** — Four reframing strategies for weak/adjacent matches with before/after examples
-- **`references/ai-screening-research.md`** — Research briefing on AI hiring tools (2025-2026): tool landscape (HireVue, Workday/HiredScore, Eightfold, Greenhouse, Paradox), semantic vs. keyword ATS scoring, documented biases, career trajectory signals, video interview guidance, and application strategy
+- **`references/ai-screening-research.md`** — Research briefing on AI hiring tools (2025-2026): tool landscape (HireVue, Workday/HiredScore, Eightfold, Gem, Greenhouse, Paradox), semantic vs. keyword vs. generative AI ATS scoring, documented biases, career trajectory signals, video interview guidance, and application strategy
