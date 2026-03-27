@@ -33,7 +33,9 @@ Company size correlation:
 - **SAP + SmartRecruiters** (closed September 2025): SmartRecruiters now being positioned to replace SAP SuccessFactors recruiting; AI assistant "Winston" (SmartRecruiters) and SAP's "Joule" AI are being connected as linked agents — combined integration available H2 2026
 
 ### Legacy (rule-based keyword matching)
-**Taleo** (Oracle), older **iCIMS** configurations. Rule-based exact keyword matching. Very format-sensitive — tables, columns, graphics cause content to be dropped entirely. Synonyms do not match. Oracle is actively migrating customers to Oracle Recruiting Cloud (ORC), which has actual ML-powered scoring — Taleo is in maintenance mode. For Taleo: format conservatively, use DOCX, mirror exact JD terminology.
+**Taleo** (Oracle), older **iCIMS** configurations. Rule-based exact keyword matching. Very format-sensitive — tables, columns, graphics cause content to be dropped entirely. Synonyms do not match. Oracle is actively migrating customers to Oracle Recruiting Cloud (ORC), which has ML-powered scoring — Taleo is in maintenance mode. For Taleo: format conservatively, use DOCX, mirror exact JD terminology.
+
+**Important ORC caveat:** Oracle Recruiting Cloud's AI scoring is **disabled by default** and must be manually enabled by the employer (profile option `ORA_IRC_APPLICANT_AI_SCORES_FEATURE_ENABLED`). Taleo migrations do not automatically activate it. Many employers running ORC may not have AI scoring turned on — do not assume AI ranking is active at an ORC customer.
 
 ### NLP-Based (semantic matching + title weighting)
 **Workday + HiredScore**: Enterprise-scale AI scoring. Does NOT use generative AI — chose explainability over LLM power; all decisions produce auditable logs. Outputs an A/B/C/D letter grade (absolute match, not curved against the candidate pool). **Job title match is explicitly and heavily weighted** — a title mismatch drops scores significantly regardless of skills match. Center of major employment discrimination litigation (*Mobley v. Workday* — see Regulatory section).
@@ -50,6 +52,10 @@ Company size correlation:
 4. Final score: 0–5 stars
 
 1.6B+ career profiles, 1.6M+ skills ontology. Can detect functional capability overlap across title and industry differences. **Critical caveat: skills not in the platform's taxonomy may not register even semantically.** Skills recency is explicitly scored — old skills decay.
+
+**Validated outcomes (2025, 688K employees):** Match Score ≥ 4.0 correlates with ~50% more promotions per capita within 2 years and 5 percentage point higher 12-month retention vs. low-score hires. The RNN career trajectory model is a genuine predictor of performance, not just pattern-matching.
+
+**Fairness benchmarking (Eightfold engineering blog, 2025):** All general-purpose LLMs tested (GPT-4o, Claude, Gemini, DeepSeek R1) breached the EEOC four-fifths rule for at least one intersectional group. Eightfold's purpose-built model did not. ROC AUC: Eightfold 0.85 vs. GPT-4o 0.77. This is the published case for why domain-trained scoring models produce different (and potentially fairer) outcomes than off-the-shelf LLMs used for screening.
 
 ### Generative AI (criteria-matching, not pattern-matching)
 **Gem**: All-in-one CRM + ATS + sourcing platform dominant in mid-market and venture-backed tech (Databricks, Stripe, Airbnb, Reddit, Robinhood, DoorDash, Asana). 1,200+ customers; ATS approaching 500 customers. Founded 2017, YC S17, $148M raised, $1.2B valuation (2021).
@@ -171,12 +177,13 @@ Nearly half of companies configure ATS to automatically flag gaps as short as si
 
 **What it evaluates now (post-2021):**
 - Transcribed content — what you say, structure, vocabulary, competency evidence
-- Speech patterns (pace, filler words) — appear verbatim in transcript and are scored
 - Answer structure (STAR format scores well — HireVue's scoring framework is built around it)
 - Response relevance to the question
+- Filler words — they appear verbatim in the transcript and degrade readability scores
 
-**What it no longer claims to evaluate:**
-- Facial expressions (discontinued 2021 under regulatory pressure)
+**What it no longer evaluates:**
+- Facial expressions (discontinued January 2021)
+- Speech patterns — audio tone, pace, and pauses were also removed. Only transcribed text is scored. Transcription is via Rev.ai (domain-adapted RoBERTa model, fine-tuned on interview data). Accent and vocal delivery are not scored — only the words matter.
 
 **Scoring baseline:** Candidates are benchmarked against top performers in similar roles at that company — not a generic standard.
 
@@ -206,7 +213,13 @@ Nearly half of companies configure ATS to automatically flag gaps as short as si
 
 **The practical risk:** AI-generated content that passes screening but fails in the interview — the candidate can't speak naturally to what they wrote.
 
-**Safe approach:** Use AI to draft, then heavily edit with specific examples, concrete numbers, and authentic voice. If you can't explain it in an interview, don't include it.
+**AI self-preferencing (new, peer-reviewed, August 2025):**
+LLMs used to screen resumes systematically prefer resumes generated by the same model — bias ranges from 68–92% depending on the model (Xu, Li, Jiang — AAAI/ACM Conference on AI, Ethics, and Society, 2025). Candidates using the same LLM as the employer's screening system are 23–60% more likely to be shortlisted. However, **no employer publicly discloses which LLM they use for screening**. This means using one AI tool to polish a resume introduces an unknowable interaction risk — you may be optimizing for the wrong model.
+
+Self-preference rates by evaluator model (against human-written resumes):
+- GPT-4o: 82% | LLaMA-3.3-70B: 79% | DeepSeek-V3: 72% | GPT-4-turbo: 67% | Mistral-7B: 28%
+
+**Safe approach:** Use AI to draft, then substantially rewrite in your own voice with specific examples, concrete numbers, and authentic detail. Heavy AI polish without rewriting creates model-dependency risk on top of the interview authenticity risk. If you can't explain it in an interview, don't include it.
 
 ---
 
@@ -225,10 +238,16 @@ Nearly half of companies configure ATS to automatically flag gaps as short as si
 **Age bias (Stanford, October 2025):**
 AI resume-screening tools exhibited systematic bias against older women specifically: AI-generated resumes portrayed women as younger and less experienced, and the same tools then rated older men's resumes higher than older women's. The core harm is to older women at the intersection of age and gender bias.
 
-**Bias amplification (University of Washington, November 2025):**
-People mirror AI systems' hiring biases — humans exposed to AI recommendations tend to adopt those biases, amplifying the effect beyond the AI's initial selection.
+**Bias amplification (University of Washington, November 2025 + arxiv 2509.04404, September 2025):**
+Humans align with AI hiring recommendations 75–90% of the time even when they believe they're making independent judgments. With moderate AI bias (realistic scenario): ~75% alignment. With severe bias: up to 90%. People who rated the AI's recommendations as "poor quality or unimportant" were still significantly influenced. The practical effect: a low AI score doesn't just hurt you in automated filtering — it primes how the human recruiter reads your resume after they open it.
 
-**Mechanism:** AI trained on historical hiring data inherits historical biases as features. This is structural, not intentional.
+**Cultural / linguistic bias (arxiv 2508.16673, August 2025):**
+LLMs encode Western-centric linguistic preferences. Resumes written in formal academic English from non-Western educational traditions score significantly lower — not because of name or identity signals, but because of sentence structure, readability scores, and hedging vs. assertive language patterns. Indian job seekers scored 0.4–0.5 points lower (on a 1–5 scale) than UK counterparts with equivalent content. The bias is invisible because it reads as "communication quality." Non-native English speakers: use short, direct, assertive American business English ("I led" not "I was responsible for leading"). Not because it is better writing — because the models were calibrated to it.
+
+**Position bias in LLM batch screening (MIT Computational Law Report / SSRN 5146809, 2025):**
+When LLMs screen a batch of resumes, they selected the first resume 87–100% of the time when candidates were equally qualified (theoretical equal probability = 10%). Even when explicitly told not to pick the first candidate, ChatGPT shifted to the 7th position (31.7% selection rate) and excluded positions 5, 6, 8, 9, and 10 entirely. This is an additional technical basis for the apply-early guidance — applications received early appear earlier in batch screening queues.
+
+**Mechanism:** AI trained on historical hiring data inherits historical biases as features. This is structural, not intentional. There are 10 defined fairness metrics used in AI recruiting systems and they mathematically conflict with each other — optimizing one degrades another. No system is bias-free; the question is which tradeoffs the vendor chose (arxiv 2405.19699, peer-reviewed survey, 2025).
 
 ---
 
@@ -302,6 +321,15 @@ Require bias mitigation measures for AI hiring tools. Less prescriptive than EU/
 - Contrary Research: Gem company analysis (2022)
 - G2: Gem ATS ratings and badges (Spring/Fall/Winter 2025)
 - Layoffs.fyi: Gem layoff records (November 2022, August 2023)
+- Xu, Li, Jiang: "AI Self-preferencing in Algorithmic Hiring" — arxiv.org/abs/2509.00462 — AAAI/ACM, August 2025
+- Puutio & Lin: "First Come, First Hired?" — MIT Computational Law Report / SSRN 5146809 — 2025
+- "Invisible Filters: Cultural Bias in LLM Hiring Evaluations" — arxiv.org/abs/2508.16673 — August 2025
+- "No Thoughts Just AI: Biased LLM Recommendations Alter Human Decision Making" — arxiv.org/abs/2509.04404 — September 2025
+- "Fairness in AI-Driven Recruitment: Challenges, Metrics, Methods" — arxiv.org/abs/2405.19699 — peer-reviewed survey, 2025
+- "AI Hiring with LLMs: Multi-Agent Framework for Resume Screening" — arxiv.org/abs/2504.02870 — April 2025
+- Eightfold Engineering Blog: AI-Powered Talent Matching, Fairness Benchmarking, Match Score Outcomes (2025)
+- HireVue: "The Latest Leap in HireVue's Assessment Technology" — hirevue.com blog
+- Oracle Recruiting Cloud 25B Release Notes: AI scoring feature documentation
 
 
 - Brookings Institution: Gender, Race, and Intersectional Bias in AI Resume Screening (2025)
