@@ -51,6 +51,26 @@ Company size correlation:
 
 1.6B+ career profiles, 1.6M+ skills ontology. Can detect functional capability overlap across title and industry differences. **Critical caveat: skills not in the platform's taxonomy may not register even semantically.** Skills recency is explicitly scored — old skills decay.
 
+### Generative AI (criteria-matching, not pattern-matching)
+**Gem**: All-in-one CRM + ATS + sourcing platform dominant in mid-market and venture-backed tech (Databricks, Stripe, Airbnb, Reddit, Robinhood, DoorDash, Asana). 1,200+ customers; ATS approaching 500 customers. Founded 2017, YC S17, $148M raised, $1.2B valuation (2021).
+
+**How scoring works:** Gem uses generative AI (Microsoft Azure OpenAI) — not a trained ML classification model. This is a fundamental architectural difference from Workday/HiredScore or Eightfold:
+1. Recruiter inputs qualifications in natural language, OR system auto-generates criteria from the JD
+2. Candidate PII (name, location, LinkedIn handle) is stripped before scoring
+3. Each criterion is scored individually; scores are averaged to a final match rank
+4. Every ranked candidate gets a written explanation citing specific text from their application ("purple-highlighted supporting evidence")
+5. Recruiters see a ranked list with explanations — AI does not make the hiring decision
+
+**What it scores against:** Resume/application text, past applications at that company, prior interview scorecard notes, outreach engagement history, internal rejection reasons. Your full history inside the system travels with you — past rejection and past positive engagement are both visible.
+
+**Key implications for candidates:**
+- Criteria-matching means exact JD language matters more than matching some historical archetype — mirror the JD vocabulary closely
+- PII stripping provides demographic-blind scoring at the AI step only; recruiter sees full profile afterward
+- If you've previously applied at a Gem customer, your prior rejection reason and interview feedback are surfaced to the next recruiter who pulls your profile
+- NYC LL144 gap: Gem's public documentation does not explicitly address NYC Local Law 144 compliance — candidates for NYC-based roles at Gem customers may have notification/alternative assessment rights that haven't been proactively communicated
+
+**Recruitment note:** Gem is also a heavy sourcing platform (800M+ profile database). Outreach from Gem-using companies is often AI-generated and personalized automatically — not hand-written by the recruiter.
+
 ### No Native AI Scoring
 **Greenhouse**: Deliberately no automated AI candidate scoring. AI used for admin tasks (JD generation, interview questions) only. All evaluation decisions are human-in-the-loop. Third-party AI tools can write scores back via API — actual AI capability depends on employer configuration. Candidates applying through Greenhouse reach a human reviewer.
 
@@ -273,10 +293,17 @@ Require bias mitigation measures for AI hiring tools. Less prescriptive than EU/
 14. **AI content:** Draft with AI, rewrite with specific authentic voice; if you can't speak to it in an interview, don't include it
 15. **LinkedIn:** Sync with resume before submitting
 16. **Verification tool:** Run through Jobscan, Rezi, or similar before submitting
+17. **Gem (tech companies):** If applying to a venture-backed tech company, you're likely in a Gem system. Mirror JD language exactly — Gem scores criteria-by-criteria against the JD. Your full application history at that company is visible; if you've applied before, your prior rejection notes travel with you.
 
 ---
 
 ## Sources
+- Gem: gem.com/product/ai-inbound-ranking, gem.com blog (AI Application Review, AI Rediscovery, AI Agents), help.gem.com compliance FAQs (2025–2026)
+- Contrary Research: Gem company analysis (2022)
+- G2: Gem ATS ratings and badges (Spring/Fall/Winter 2025)
+- Layoffs.fyi: Gem layoff records (November 2022, August 2023)
+
+
 - Brookings Institution: Gender, Race, and Intersectional Bias in AI Resume Screening (2025)
 - NPR: AI Hiring Tools — Bias and Bugs (October 2025)
 - University of Washington: People Mirror AI Systems' Hiring Biases (November 2025)

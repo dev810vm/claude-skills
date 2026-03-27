@@ -4,6 +4,19 @@ All changes to this repo. Most recent first.
 
 ---
 
+## 2026-03-27
+
+### ai-screening-research.md — add Gem ATS
+- Added Gem to tool landscape under new "Generative AI (criteria-matching)" tier
+- Gem uses Azure OpenAI (generative AI), not legacy ML — architecturally different from Workday/Eightfold
+- Documented scoring pipeline: PII stripping → criteria-level scoring → match explanation with citations
+- Flagged that full application history (prior rejections, interview notes) travels with candidates
+- Flagged NYC Local Law 144 compliance gap in Gem's public documentation
+- Added Key Takeaway #17 for Gem / tech company applications
+- Sources: gem.com product docs, gem.com blog, help.gem.com compliance FAQs, G2 2025, Contrary Research
+
+---
+
 ## 2026-03-26
 
 ### resume-review — execution order fix
