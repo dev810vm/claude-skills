@@ -1,6 +1,12 @@
-# Claude Skills — Job Search Toolkit
+# Claude Skills
 
-Beat the bots. AI hiring systems are screening out qualified candidates at scale — these skills help you fight back. Drop them into Claude Code and get AI-powered resume review, company research, and application strategy built specifically to outmaneuver automated screening.
+A collection of Claude Code skills — purpose-built tools that give Claude deep, specialized capabilities for specific tasks. Drop them in and Claude knows exactly what to do.
+
+The current focus is job search: AI hiring systems are screening out qualified candidates at scale, and these skills fight back. More skills will be added over time.
+
+## Job Search Skills
+
+Beat the bots. AI-powered resume review, company research, and application strategy built specifically to outmaneuver automated screening.
 
 > **Requires [Claude Code](https://claude.ai/download)** — the CLI tool, not the web interface. These are skill files that Claude Code loads and executes; they won't work by pasting them into Claude.ai.
 
