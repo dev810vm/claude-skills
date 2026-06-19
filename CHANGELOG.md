@@ -4,6 +4,18 @@ All changes to this repo. Most recent first.
 
 ---
 
+## 2026-06-19 (update 3)
+
+### resume-review/SKILL.md — Step 10 video interview section updated
+
+Four changes driven by new research in ai-screening-research.md:
+- **Factual correction:** "Technical setup not scored by AI" → "these are active AI scoring variables" (arxiv 2505.12114: environmental factors shift AI personality scores more than candidate performance differences)
+- **Interview Insights scope:** Added note that HireVue now AI-scores live/structured interviews via Interview Insights (Oct 2025) — not just async pre-recorded video
+- **Voice AI interviewer:** Added note on Hireguide acquisition (Mar 2026) — candidates may encounter a real-time AI voice screening call; STAR structure still applies
+- **Candidate rights:** Added explicit guidance on Illinois statutory right to decline AI video analysis and receive alternative evaluation (Illinois AI Video Interview Act 2026 amendment); noted parallel rights under NYC LL144 and Colorado SB205
+
+---
+
 ## 2026-06-19 (update 2)
 
 ### ai-screening-research.md — major research sweep, 8 new findings

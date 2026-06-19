@@ -415,13 +415,16 @@ Include this section only if the company is known or likely to use AI video scre
 **How AI video screening works:**
 Modern platforms (HireVue dominant) transcribe answers and score them using NLP — they evaluate what you say, how you structure it, vocabulary, and whether your answer demonstrates the competencies the role requires. Facial expression analysis and audio speech pattern analysis (tone, pace) were both discontinued. Only transcribed text is scored. Filler words matter because they appear verbatim in the transcript — not because audio is analyzed. Scores are benchmarked against top performers in similar roles at that company, using a domain-adapted RoBERTa model fine-tuned on interview data.
 
+**HireVue scope has expanded:** Interview Insights (October 2025) extends AI transcript scoring to live and structured interviews — not just async pre-recorded video. If the company uses HireVue for any stage of the interview, AI may be scoring the content of that conversation. Additionally, HireVue's March 2026 acquisition of Hireguide introduces a voice-based conversational AI interviewer — some companies may now use a real-time AI dialogue to screen candidates in place of (or before) a recorded video interview. If a candidate is invited to a "phone screen" that turns out to be an AI voice call, STAR structure and direct, outcome-first answers still apply.
+
 **Guidance to include in the report if applicable:**
 - Use **STAR format** for every behavioral question (Situation, Task, Action, Result) — HireVue's scoring framework is built around this structure
 - **Front-load the Action and Result** — NLP models score on content relevance; don't build up to the answer, lead with it
 - Target **60–90 seconds per answer** — most employers set a 90–120 second limit, but optimal delivery is 60–90 seconds; responses at the very edge of the time limit tend to score lower
 - **Minimize filler words** (um, like, you know) — these appear verbatim in the transcript that the AI scores
-- **Technical setup**: neutral background, eye-level camera, well-lit, quiet environment — not scored by AI, but affects human reviewer impression if the application advances
+- **Technical setup**: neutral background, eye-level camera, well-lit, quiet environment — **these are active AI scoring variables**, not just optics; 2026 research found environmental changes shift AI personality assessment scores by more than the difference between high- and low-performing candidates
 - **Game-based assessments** (cognitive/personality): measure processing speed, pattern recognition, and decision-making; cannot be easily gamed — approach calmly, don't over-optimize
+- **Candidate rights:** If the role is based in Illinois, the candidate has a statutory right to decline AI video analysis and receive an alternative evaluation pathway — the employer must provide one. The candidate must give written consent before the interview begins; continuing with the interview no longer constitutes consent under the 2026 Illinois AI Video Interview Act amendment. If applying for NYC or Colorado roles, the candidate may also have rights to request disclosure of AI tool use and an alternative assessment process under NYC Local Law 144 and Colorado SB205 (when enforcement resumes) — rights that are rarely disclosed proactively.
 
 ### Step 11: Ceiling Analysis
 
