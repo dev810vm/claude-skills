@@ -2,6 +2,8 @@
 
 Use this when evaluating how a resume will perform against AI screening systems, and when giving application strategy advice.
 
+*Last validated: 2026-06-19*
+
 ---
 
 ## Scale and Adoption
@@ -225,6 +227,18 @@ Self-preference rates by evaluator model (against human-written resumes):
 
 ## Documented Bias in AI Hiring Systems
 
+**Important methodological caveat for lab-based bias studies:**
+Most academic bias studies use techniques (name substitution on LLMs, forced binary choice between two candidates, direct prompting) that don't reflect how production ATS systems actually operate. Key differences: most enterprise systems strip PII including names before AI scoring; real systems score candidates individually rather than comparatively; and purpose-built hiring models use structured criteria, not open-ended prompting. Studies testing ChatGPT or Gemini directly are measuring LLM behavior, not ATS behavior. Treat lab findings as establishing that bias *can* exist in AI systems — not as a direct measure of what a specific production hiring tool does.
+
+**AI vs. human baseline (Warden AI, 2025 — note: vendor with commercial interest in AI adoption):**
+Warden AI audited 150+ production AI hiring tools using 1M+ test samples. Key findings:
+- 85% of audited AI systems met the EEOC four-fifths rule fairness threshold (impact ratio ≥0.8) across all tested demographic groups; 15% failed for at least one group
+- Average AI impact ratio: 0.94 (above threshold). Average human impact ratio derived from 10 academic studies: 0.67 (below threshold)
+- Female candidates: AI impact ratio 0.99 vs. human 0.71 — up to 39% fairer treatment under AI
+- Black and Hispanic candidates: AI impact ratios ~0.96–0.97 vs. human 0.67 — up to 45% fairer treatment under AI
+- Bias varied across vendors by as much as 40% — which tool an employer uses matters significantly
+- Caveat: audited vendors self-select and skew toward responsible practitioners. The ~15% failure rate reflects systems that sought auditing, not the broader universe of unaudited tools.
+
 **Racial bias (Brookings Institution, 2025):**
 554 resumes tested across 3 LLMs and 9 occupations, ~40,000 resume-JD comparisons:
 - White-associated names preferred in 85.1% of comparisons; Black-associated names in 8.6%
@@ -249,6 +263,12 @@ When LLMs screen a batch of resumes, they selected the first resume 87–100% of
 
 **Mechanism:** AI trained on historical hiring data inherits historical biases as features. This is structural, not intentional. There are 10 defined fairness metrics used in AI recruiting systems and they mathematically conflict with each other — optimizing one degrades another. No system is bias-free; the question is which tradeoffs the vendor chose (arxiv 2405.19699, peer-reviewed survey, 2025).
 
+**Candidate notification gap (Warden AI, 2025):**
+Only 15% of candidates are made aware that AI is being used in their evaluation. 40% of employers do not disclose AI use at all; 20% mention it briefly. Candidates have statutory rights under NYC LL144, Colorado SB205, and EU AI Act (including the right to request human review and alternative assessment) that they are frequently not being informed about. Assume AI is involved unless told otherwise, and know that you can request disclosure for roles in these jurisdictions.
+
+**Age and disability audit gap:**
+95% of AI hiring tool bias audits cover only sex and race/ethnicity — driven by NYC LL144's focus on those two protected classes. Only 5% of audits cover age or disability. This is a meaningful blind spot: age discrimination is one of the primary claims in Mobley v. Workday, yet most "audited" AI hiring systems have never been tested for age bias. Older candidates should not assume that a vendor's bias audit certifies fairness for their situation.
+
 ---
 
 ## Regulatory Landscape
@@ -269,9 +289,16 @@ When LLMs screen a batch of resumes, they selected the first resume 87–100% of
 - Civil penalties: $500–$1,500/day per violation
 - December 2025: NY State Comptroller audit found enforcement "ineffective" — signals a stricter enforcement phase coming
 - Applies to any employer using AEDTs for roles located in NYC, regardless of company location
+- **Compliance reality (2025):** Despite LL144 being in effect since January 2023, only ~38% of vendors are fully compliant; ~42% in development; ~20% not started (Warden AI vendor survey, 2025). Candidates have rights under this law they are frequently not being informed about.
+
+### Colorado SB205 (February 2026)
+- Effective: February 2026
+- Applies to: both developers AND deployers of AI systems used in "consequential decisions" (employment is explicitly included) — broadest US scope so far
+- Requires: bias risk management, impact assessments, candidate disclosure, right to appeal
+- Likely to become the template other states follow (California watching closely)
 
 ### Illinois, Colorado, California
-Require bias mitigation measures for AI hiring tools. Less prescriptive than EU/NYC but expanding.
+Require bias mitigation measures for AI hiring tools. Less prescriptive than EU/NYC but expanding. Colorado SB205 (above) is the most substantive state-level law to date.
 
 ### Active Litigation: Mobley v. Workday
 - Class action alleging racial, age, and disability discrimination via Workday's automated screening
@@ -347,6 +374,7 @@ Require bias mitigation measures for AI hiring tools. Less prescriptive than EU/
 - The Interview Guys: ATS Rejection Myth; Hidden Text Study
 - EU AI Act: Official EU regulation text; HeroHunt EU AI Act Recruiting Guide
 - NYC Local Law 144: NY State Comptroller Enforcement Audit (December 2025); Warden AI Compliance Guide
+- Warden AI: "State of AI Bias in Talent Acquisition 2025" — 150+ AI audits, 1M+ test samples, 50+ vendor survey responses (2025)
 - CDT: HireVue AI Explainability Statement Analysis
 - ManpowerGroup: Hidden text detection data (via Interview Guys)
 - Harvard Business School: Employment gap ATS flagging study

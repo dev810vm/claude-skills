@@ -153,7 +153,7 @@ This lens informs all scoring and recommendation decisions below.
 
 > **Depends on:** Step 1 complete. Runs in parallel with Company Research and Step 9.
 
-Applicant Tracking System (ATS) software processes resumes before a human sees them. 83% of companies use AI for resume screening, and 88% of employers acknowledge their filters reject qualified candidates. The systems range from simple keyword matchers (Taleo, legacy iCIMS) to semantic AI platforms (Eightfold, Workday/HiredScore) — the approach below accounts for both.
+Applicant Tracking System (ATS) software processes resumes before a human sees them. ~76% of US companies use AI for resume screening, and 88% of employers acknowledge their filters reject qualified candidates. The systems range from simple keyword matchers (Taleo, legacy iCIMS) to semantic AI platforms (Eightfold, Workday/HiredScore) — the approach below accounts for both.
 
 **Platform tiers — scoring behavior differs significantly:**
 - **Legacy (Taleo, older iCIMS):** Rule-based exact keyword matching. Very format-sensitive. Synonyms do not match.
@@ -296,8 +296,8 @@ For each serious or fatal gap:
 - Use company intel to calibrate severity: a gap in an area the company is actively investing in is more serious than one that's peripheral to their current priorities
 
 **Career trajectory signals (flag if present):**
-- Multiple short tenures (<18 months) across consecutive roles — AI systems trained on historical hiring data treat this as a negative signal. Mitigation: label contract and freelance roles explicitly in the job title (e.g., "Communications Consultant (Contract)") — ATS systems treat labeled short-term work differently from unlabeled short stints, significantly reducing the penalty
-- Unexplained employment gaps >3 months — any honest explanation scores better than silence; suggest adding a one-line note in the experience section or addressing it in the cover letter
+- Multiple short tenures (<12 months) across consecutive roles — AI systems trained on historical hiring data treat this as a negative signal. Mitigation: label contract and freelance roles explicitly in the job title (e.g., "Communications Consultant (Contract)") — ATS systems treat labeled short-term work differently from unlabeled short stints, significantly reducing the penalty
+- Unexplained employment gaps >6 months — any honest explanation scores better than silence; suggest adding a one-line note in the experience section or addressing it in the cover letter
 - Declining trajectory (senior title → junior title) — flag for the candidate; suggest framing in cover letter as intentional pivot with reasoning
 
 ### Step 7: Additional Materials Assessment

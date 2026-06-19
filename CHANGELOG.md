@@ -4,6 +4,26 @@ All changes to this repo. Most recent first.
 
 ---
 
+## 2026-06-19
+
+### resume-review/SKILL.md — fix internal stat inconsistencies
+Three figures in SKILL.md disagreed with their own reference files; aligned SKILL.md to the reference-file values:
+- **ATS adoption:** "83% of companies use AI for resume screening" → "~76%" (the 83% was the cover-letter-reading stat from ai-screening-research.md cross-wired into the ATS claim; reference value is ~76%, HeroHunt 2025)
+- **Short tenure threshold:** "<18 months" → "<12 months" (matches scoring-rubric.md and ai-screening-research.md)
+- **Employment gap threshold:** ">3 months" → ">6 months" (matches scoring-rubric.md and the Harvard Business School finding cited in ai-screening-research.md)
+
+### ai-screening-research.md — Warden AI report + article validation pass
+- Added **Colorado SB205** (effective Feb 2026, broadest US scope — covers developers and deployers) to Regulatory section
+- Added **AI vs. human fairness baseline** from Warden AI "State of AI Bias in TA 2025" (150+ audits, 1M+ samples): AI avg impact ratio 0.94 vs. human 0.67; up to 39% fairer for women, 45% fairer for racial minorities — framed with vendor self-interest and self-selection caveats
+- Added **methodological caveat** for lab-based bias studies (name-substitution/forced-choice tests measure LLM behavior, not production ATS, which strip PII and score individually)
+- Added **candidate notification gap**: only 15% of candidates told AI is used; rights under NYC LL144 / Colorado SB205 / EU AI Act frequently not disclosed
+- Added **age/disability audit gap**: 95% of bias audits cover only sex and race; only 5% test age or disability despite Mobley
+- Added **NYC LL144 compliance reality**: ~38% vendor compliance despite law in effect since Jan 2023
+- Added "Last validated: 2026-06-19" header
+- Sources: Warden AI "State of AI Bias in Talent Acquisition 2025"; intelligentcv.app ATS rejection article
+
+---
+
 ## 2026-03-27
 
 ### ai-screening-research.md — whitepaper research pass, major new findings
