@@ -196,8 +196,13 @@ Nearly half of companies configure ATS to automatically flag gaps as short as si
 - Front-load Action and Result — NLP models score on content relevance; don't build up to the answer
 - Target 60–90 seconds per answer — most employers set 90–120 second limits, but responses delivered in 60–90 seconds score better; significantly shorter or longer responses tend to score lower
 - Minimize filler words (um, like, you know) — these appear verbatim in the transcript
-- Neutral background, eye-level camera, well-lit, quiet environment
+- Neutral background, eye-level camera, well-lit, quiet environment — these are active AI scoring variables, not just optics (arxiv 2505.12114: environmental factors alter personality assessment scores by more than the difference between high- and low-performers)
 - Game-based assessments (cognitive/personality): measure processing speed, pattern recognition, decision-making — cannot be meaningfully gamed; approach calmly
+
+**HireVue product evolution (2025–2026):**
+- **Interview Insights (October 2025):** New AI layer that analyzes transcript content in live and recorded interviews to identify moments where candidates demonstrate job-relevant competencies. Generates AI transcripts, enables competency tagging, and measures interviewer consistency (question coverage, talk-time balance). Extends AI scoring beyond asynchronous pre-recorded interviews to structured live interviews.
+- **Workday AI Agent Network (January 2026):** HireVue joined Workday's AI Agent ecosystem. HireVue assessment scores can now trigger Workday workflow agents automatically — tighter coupling between HireVue scoring and Workday disposition and scheduling decisions.
+- **Hireguide acquisition (March 2026):** HireVue acquired Hireguide's agentic AI technology (~$25–45M). Hireguide built voice-based conversational AI interviewers. First planned product: a voice AI Interviewer that conducts adaptive screening conversations in place of resume-only initial filtering. This is a structural shift — from candidates being scored on recorded video answers to candidates being evaluated in real-time AI dialogue.
 
 ---
 
@@ -269,6 +274,20 @@ Only 15% of candidates are made aware that AI is being used in their evaluation.
 **Age and disability audit gap:**
 95% of AI hiring tool bias audits cover only sex and race/ethnicity — driven by NYC LL144's focus on those two protected classes. Only 5% of audits cover age or disability. This is a meaningful blind spot: age discrimination is one of the primary claims in Mobley v. Workday, yet most "audited" AI hiring systems have never been tested for age bias. Older candidates should not assume that a vendor's bias audit certifies fairness for their situation.
 
+**Algorithmic monoculture (Stanford/Northeastern/Chapman, May 2026 — ACM FAccT):**
+When multiple employers use the same AI hiring vendor, bias replicates across the entire market — the same algorithm rejects the same people at every employer using it. Studied 4M+ applications from 3M applicants across 156 employers (mostly $5B+ revenue companies) screened by Pymetrics (acquired by Harver in 2022):
+- Black applicants: 26% of their applications went to positions adversely impacted by the algorithm; Asian applicants: 15% adversely impacted
+- Systemic rejection rate of 10% of all candidates who submitted 4+ applications — "significantly exceeds the baseline rate expected under independent decisions"
+- Game-based cognitive/personality scores retained for 330 days: a candidate rejected by one Pymetrics employer re-encounters nearly the same algorithmic decision at every other Pymetrics employer they apply to within that window
+- Vendor concentration is not architecturally neutral — a bias baked into one company's model becomes a sector-wide barrier when that vendor holds 156+ employer relationships
+- Key implication: diversifying job search across employers does not diversify the algorithm if all those employers use the same vendor
+
+**Video interview AI bias against deaf and non-White applicants (ACLU complaint, March 2025):**
+ACLU of Colorado filed a complaint with the EEOC and Colorado Civil Rights Division against Intuit and HireVue. A Native American and deaf Intuit employee (with positive performance reviews) applied for an internal promotion, was required to complete a HireVue video interview, requested human-generated captioning as an ADA accommodation, was denied (told HireVue's built-in subtitling would suffice), and found no subtitles available when she began the interview. The complaint also alleges HireVue performs worse for non-White candidates including those speaking Native American English dialects (different speech patterns, word choices, and accents from the speech HireVue's transcript model was calibrated on). Claims: Title VII, ADA, Colorado Anti-Discrimination Act. HireVue has denied the allegations. Critical implication: even when facial expression and audio tone scoring are disabled, transcript-based scoring can encode dialect and speech-pattern bias.
+
+**Video interview environmental factors (arxiv 2505.12114, May 2026):**
+AI personality assessment tools significantly alter their scoring based on environmental video factors — background setting, lighting, and ambient noise — independent of candidate verbal content. Score shifts from environmental changes exceeded the difference between low- and high-performing candidates. This confirms that the standard "neutral background, eye-level camera, well-lit, quiet environment" guidance is not just presentation polish — these are active scoring variables in the AI evaluation.
+
 ---
 
 ## Regulatory Landscape
@@ -291,22 +310,47 @@ Only 15% of candidates are made aware that AI is being used in their evaluation.
 - Applies to any employer using AEDTs for roles located in NYC, regardless of company location
 - **Compliance reality (2025):** Despite LL144 being in effect since January 2023, only ~38% of vendors are fully compliant; ~42% in development; ~20% not started (Warden AI vendor survey, 2025). Candidates have rights under this law they are frequently not being informed about.
 
-### Colorado SB205 (February 2026)
-- Effective: February 2026
+### Colorado SB205 (February 2026 — enforcement currently paused)
+- Signed: May 17, 2024 (Governor Polis); originally effective February 1, 2026
 - Applies to: both developers AND deployers of AI systems used in "consequential decisions" (employment is explicitly included) — broadest US scope so far
 - Requires: bias risk management, impact assessments, candidate disclosure, right to appeal
-- Likely to become the template other states follow (California watching closely)
+- Enforcement authority: Colorado AG only; no private right of action; penalties up to $20,000/violation under Colorado Consumer Protection Act
+- **Current status (as of June 2026): enforcement paused** — on April 27, 2026, a federal court issued an order preventing the state from initiating enforcement actions while lawmakers reconsider timing and scope. The law remains on the books; enforcement resumes if the stay is lifted.
+- Likely to become the template other states follow (California watching closely) once enforcement stabilizes
 
-### Illinois, Colorado, California
-Require bias mitigation measures for AI hiring tools. Less prescriptive than EU/NYC but expanding. Colorado SB205 (above) is the most substantive state-level law to date.
+### Illinois AI Video Interview Act (amended February 2026)
+Illinois enacted the original AI Video Interview Act in 2019; a 2026 amendment significantly strengthened consent requirements. The key change: candidates must now affirmatively opt in with written consent before an AI-analyzed video interview — continuing with the interview no longer constitutes consent. Full requirements:
+- Written notice before the interview that AI may analyze video content and inform hiring decisions
+- An information sheet explaining how the AI works and what characteristics it evaluates
+- Written consent signature before the interview begins
+- Alternative evaluation pathway if the candidate declines AI analysis
+- Video recordings and AI analysis deleted within 30 days (unless candidate is hired, or provides written consent for longer retention)
 
-### Active Litigation: Mobley v. Workday
-- Class action alleging racial, age, and disability discrimination via Workday's automated screening
-- Conditionally certified as collective action under ADEA (Age Discrimination in Employment Act), May 2025
-- July 2025: Scope expanded to explicitly include HiredScore AI features
-- Potential class: everyone 40+ who applied through Workday since September 2020 — court filings cite 1.1 billion applications processed
-- Court refused to dismiss "agent" theory — AI vendors themselves may bear direct liability, not just employers using their tools
-- This case will likely reshape how AI vendors design, market, and disclaim their hiring tools
+Implication for candidates: if you're applying for Illinois-based roles via HireVue or a similar tool, you have a statutory right to decline AI analysis and receive an alternative human review. This right is rarely disclosed proactively.
+
+### California, Other States
+California does not yet have a specific AI hiring statute but is closely watching Colorado SB205 for a legislative template. Several other states have general automated decision-making disclosure requirements. The regulatory landscape is active; new state laws are expected in 2026–2027.
+
+### Active Litigation: Mobley v. Workday (Case No. 23-CV-00770, N.D. California)
+- Class action alleging racial, age, and disability discrimination via Workday's automated screening (Candidate Skills Match feature)
+- **May 2025:** Conditionally certified as collective action under ADEA (Age Discrimination in Employment Act)
+- **July 2025:** Scope expanded to explicitly include HiredScore AI features (Spotlight and Fetch); HiredScore disclosure order issued
+- **February 17, 2026:** Workday issued opt-in notices to potential class members
+- **March 6, 2026:** ADEA collective action formally certified — class covers all applicants 40+ who applied through Workday systems since September 2020; court filings cite 1.1 billion applications processed
+- **May 29, 2026 — key discovery rulings (Magistrate Judge Laurel Beeler):**
+  - Workday's internal bias-testing data: protected by attorney-client privilege — attorneys curated the test data and testing was conducted for legal advice purposes; publicly invoking bias testing does not waive this privilege. **Blueprint for AI vendors:** structure internal audits under legal counsel to shield them from discovery
+  - Customer applicant data: Workday held to lack a "legal right to obtain its customers' data on demand" — plaintiffs cannot force Workday to produce data held by third-party employers
+  - EEO-1 and OFCCP compliance documents: ordered produced, found relevant to Workday's knowledge of demographic disparities in AI tool use
+- Court has not dismissed "agent" theory — AI vendors themselves may bear direct liability, not just the employers using their tools
+- This case is the leading precedent for AI-vendor privilege over audit data and will reshape how vendors design, market, and internally audit hiring AI
+
+### Active Litigation: Eightfold AI FCRA Class Action
+- Filed January 21, 2026, California state court; plaintiffs represented by Outten & Golden (employment law firm) and Towards Justice (nonprofit)
+- **Legal theory:** Eightfold's AI-generated hiring assessments qualify as "consumer reports" under the Fair Credit Reporting Act (FCRA) — because they are produced by a third party and used to evaluate employment candidates, they trigger candidate disclosure and dispute rights under FCRA. If courts agree, candidates would have the legal right to see, challenge, and correct their AI-generated hiring profiles.
+- **Alleged conduct:** Eightfold creates detailed candidate profiles — inferred personality traits, educational quality assessments, job fit rankings, career path predictions — without candidate knowledge or opportunity to review. These assessments are used in hiring decisions without disclosure.
+- **Status:** Early procedural stages; Eightfold has not admitted wrongdoing; no employer defendants at this stage
+- **The "liability squeeze" concept:** If the FCRA theory succeeds, employers using Eightfold (and similar tools) face liability on two independent legal fronts: discriminatory outcome claims (Mobley theory — equal employment law) AND consumer reporting violations (FCRA theory — privacy/consumer protection law). The two frameworks create structural pressure on AI hiring vendors regardless of which argument wins.
+- Distinctly different from Mobley: this approach does not require proving discriminatory intent or disparate impact — it argues AI hiring assessments are a form of consumer reporting, full stop
 
 ---
 
@@ -378,3 +422,14 @@ Require bias mitigation measures for AI hiring tools. Less prescriptive than EU/
 - CDT: HireVue AI Explainability Statement Analysis
 - ManpowerGroup: Hidden text detection data (via Interview Guys)
 - Harvard Business School: Employment gap ATS flagging study
+- Bommasani et al.: "Algorithmic Monocultures in Hiring" — arxiv.org/abs/2605.27371 — Stanford/Northeastern/Chapman, ACM FAccT June 2026 (4M+ applications, 3M applicants, 156 employers, Pymetrics/Harver)
+- Fortune: "Largest study of AI hiring algorithms to date finds clear racial disparities" — May 26, 2026
+- HR Dive: "How a hiring algorithm is audited can disguise bias, study finds" — May 2026
+- ACLU of Colorado / Public Justice: Complaint against Intuit and HireVue (EEOC + Colorado Civil Rights Division) — March 2025; HR Dive coverage: "AI hiring software was biased against deaf employees, ACLU alleges in ADA case"
+- Castleman et al.: "Measuring Validity in LLM-based Resume Screening" — arxiv.org/abs/2602.18550 — February 2026 (models select candidates from different demographic groups at different rates; proposed audit framework)
+- arxiv 2505.12114 (May 2026): environmental video factors (background, lighting, noise) alter AI personality assessment scores by more than candidate performance differences
+- HireVue: "Interview Insights" announcement — GlobeNewswire, October 8, 2025
+- HireVue: "Hireguide acquisition to accelerate agentic AI hiring" — GlobeNewswire, March 10, 2026
+- Hinshaw & Culbertson: "Illinois Adopts New AI-in-Employment Regulations: What Employers Need to Know for 2026" (Illinois AI Video Interview Act 2026 amendment)
+- Duane Morris Class Action Defense Blog: "California Federal Court Clarifies Limits on AI Bias Testing and Applicant Data Disclosure in Mobley v. Workday" — June 2, 2026 (May 29, 2026 discovery rulings)
+- Eightfold AI FCRA class action: DHR MAP coverage, January 21, 2026; Outten & Golden / Towards Justice

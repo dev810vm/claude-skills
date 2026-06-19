@@ -4,6 +4,32 @@ All changes to this repo. Most recent first.
 
 ---
 
+## 2026-06-19 (update 2)
+
+### ai-screening-research.md — major research sweep, 8 new findings
+
+**Regulatory updates:**
+- **Colorado SB205:** Corrected from "effective February 2026" → "enforcement currently paused" — federal court stay issued April 27, 2026; enforcement suspended while lawmakers reconsider timing and scope
+- **Illinois AI Video Interview Act (amended February 2026):** Replaced brief mention with full dedicated section. Key change: explicit written consent now required before AI video interview (continuing ≠ consent). Added: right to alternative evaluation pathway if candidate declines, 30-day deletion requirement for recordings
+- **California:** Added note on legislative watch status; CO SB205 is expected template
+
+**Active litigation — two new cases:**
+- **Mobley v. Workday 2026 updates:** Added March 6 ADEA certification, February 17 opt-in notice, and critical May 29, 2026 discovery rulings (bias-testing data shielded by attorney-client privilege; customer data not obtainable from Workday; EEO-1/OFCCP docs ordered produced). Added the privilege-shielding implication as a blueprint other vendors will follow.
+- **Eightfold AI FCRA class action (January 21, 2026):** New full section. Theory: AI hiring assessments = consumer reports under FCRA, triggering disclosure and dispute rights. Filed by Outten & Golden + Towards Justice. Introduces "liability squeeze" concept — two independent legal theories (FCRA + employment discrimination) simultaneously pressuring AI hiring vendors.
+
+**Documented bias — four new findings:**
+- **Stanford/Northeastern/Chapman algorithmic monoculture (May 2026, ACM FAccT):** 4M+ applications, 156 employers ($5B+ revenue), all using Pymetrics/Harver. 26% of Black applicants and 15% of Asian applicants sent to adversely impacted positions. Systemic 10% rejection rate for multi-applicant candidates. 330-day score reuse means one algorithmic rejection propagates to all other Pymetrics employers in the window. Vendor concentration amplifies and replicates bias sector-wide.
+- **ACLU complaint: Intuit + HireVue (March 2025):** Native American, deaf Intuit employee required to use HireVue for internal promotion; ADA captioning accommodation denied; subtitles absent during interview. Also alleges worse performance for non-White candidates speaking Native American English dialects. Claims: Title VII, ADA, Colorado ADA. HireVue denies. Implication: transcript-based scoring can encode dialect bias even after audio/face scoring is disabled.
+- **Video interview environmental factors (arxiv 2505.12114, May 2026):** Background, lighting, and ambient noise alter AI personality assessment scores by more than candidate performance differences. Added to HireVue candidate guidance as active scoring variables.
+- **LLM resume screening validity (arxiv 2602.18550, February 2026):** Models don't reliably abstain when ranking equally-qualified candidates; select different demographic groups at different rates. Added to Sources.
+
+**HireVue product evolution section added:**
+- Interview Insights (October 2025): competency-tagging in live/recorded interviews, talk-time and question-consistency measurement
+- Workday AI Agent Network (January 2026): HireVue scores now trigger Workday workflow agents
+- Hireguide acquisition (March 2026, ~$25–45M): voice-based conversational AI interviewer; replaces recorded video screening with real-time AI dialogue for initial qualification
+
+---
+
 ## 2026-06-19
 
 ### resume-review/SKILL.md — fix internal stat inconsistencies
